@@ -1,15 +1,19 @@
-﻿using Assets.Scripts.Constants;
+﻿using System;
+using Assets.Scripts.Constants;
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : Singleton<PlayerMovement>
     {
         private Collision coll;
         private Rigidbody2D rb;
         private float xMovement;
         private float yMovement;
+
+        public Collider2D boxCollider;
 
         [Space]
         public float speed = 10;
@@ -24,6 +28,9 @@ namespace Assets.Scripts.Player
 
         void Start()
         {
+            if (boxCollider == null)
+                throw new NullReferenceException("Box Collider is missing. Please reference it.");
+
             coll = GetComponent<Collision>();
             rb = GetComponent<Rigidbody2D>();
         }
@@ -54,7 +61,6 @@ namespace Assets.Scripts.Player
             if (!canMove) { return; }
             if (Input.GetButtonDown(InputManager.Jump) && coll.onGround)
             {
-                Debug.Log("Jumping");
                 Jump(Vector2.up);
             }
         }
