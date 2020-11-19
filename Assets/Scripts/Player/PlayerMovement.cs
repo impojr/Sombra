@@ -12,6 +12,8 @@ namespace Assets.Scripts.Player
         private Rigidbody2D rb;
         private float xMovement;
         private float yMovement;
+        private bool facingRight;
+        private float oldPosition;
 
         public Collider2D boxCollider;
 
@@ -33,14 +35,35 @@ namespace Assets.Scripts.Player
 
             coll = GetComponent<Collision>();
             rb = GetComponent<Rigidbody2D>();
+            facingRight = true;
+
+            oldPosition = transform.position.x;
         }
 
         void Update()
         {
+            FlipSprite();
             UpdateCoordinates();
             ProcessWalk();
             ProcessJump();
             BetterJumping();
+        }
+
+        private void FlipSprite()
+        {
+            if (Math.Abs(transform.position.x - oldPosition) < 0.01f) return;
+
+            if (transform.position.x > oldPosition) // he's looking right
+            {
+                transform.localScale = Vector3.one;
+            }
+
+            if (transform.position.x < oldPosition) // he's looking left
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            oldPosition = transform.position.x;
         }
 
         private void UpdateCoordinates()
