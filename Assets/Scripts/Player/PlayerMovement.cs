@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player
         private Rigidbody2D rb;
         private float xMovement;
         private float yMovement;
-        private bool facingRight;
+        public bool facingRight;
         private float oldPosition;
 
         public Collider2D boxCollider;
@@ -55,11 +55,13 @@ namespace Assets.Scripts.Player
 
             if (transform.position.x > oldPosition) // he's looking right
             {
+                facingRight = true;
                 transform.localScale = Vector3.one;
             }
 
             if (transform.position.x < oldPosition) // he's looking left
             {
+                facingRight = false;
                 transform.localScale = new Vector3(-1, 1, 1);
             }
 

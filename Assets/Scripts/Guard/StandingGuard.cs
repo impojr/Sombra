@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Interfaces;
 using Assets.Scripts.Player;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace Assets.Scripts.Guard
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class StandingGuard : MonoBehaviour
+    public class StandingGuard : MonoBehaviour, IHackable
     {
         public bool playerDetected;
         public bool hacked;
@@ -76,7 +77,12 @@ namespace Assets.Scripts.Guard
             StopCoroutine(_detectPlayerCoroutine);
         }
 
-        public void Hack()
+        public bool IsHacked()
+        {
+            return hacked;
+        }
+
+        public void Hacked()
         {
             hacked = true;
             UndetectPlayer();
@@ -87,6 +93,8 @@ namespace Assets.Scripts.Guard
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
             hacked = false;
+
+            OnPlayerVisible();
         }
 
         private void OnPlayerInvisible()

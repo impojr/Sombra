@@ -11,5 +11,11 @@
         public static string Vertical = "Vertical";
         public static string Jump = "Jump";
         public static string Invisibility = "Invisibility";
+        public static string Hack = "Hack";
+    }
+
+    public static class Layer
+    {
+        public static string Hackable = "Hackable";
     }
 }
