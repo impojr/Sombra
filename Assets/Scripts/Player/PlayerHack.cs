@@ -56,8 +56,6 @@ namespace Assets.Scripts.Player
 
                 if (hackableObject == null || hackableObject.IsHacked()) return;
 
-                Debug.Log("HACKING ");
-
                 if (hackableObject != _objectHacking)
                 {
                     _objectHacking = hackableObject;
@@ -69,7 +67,6 @@ namespace Assets.Scripts.Player
 
                 if (Math.Abs(_currentHackingTime - hackTimeInSeconds) < 0.01f)
                 {
-                    Debug.Log("HACKED ");
                     _objectHacking.Hacked();
                     StartCoroutine(HackStopped());
                 }

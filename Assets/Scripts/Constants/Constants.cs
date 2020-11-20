@@ -18,4 +18,9 @@
     {
         public static string Hackable = "Hackable";
     }
+
+    public static class AnimationParams
+    {
+        public static string HasXVelocity = "HasXVelocity";
+    }
 }

@@ -73,8 +73,12 @@ namespace Assets.Scripts.Guard
         private void UndetectPlayer()
         {
             playerDetected = false;
-            visor.color = Color.white;
-            StopCoroutine(_detectPlayerCoroutine);
+
+            if (!hacked)
+                visor.color = Color.white;
+
+            if (_detectPlayerCoroutine != null)
+                StopCoroutine(_detectPlayerCoroutine);
         }
 
         public bool IsHacked()
@@ -85,6 +89,7 @@ namespace Assets.Scripts.Guard
         public void Hacked()
         {
             hacked = true;
+            visor.color = Color.black;
             UndetectPlayer();
             StartCoroutine(Restore());
         }
@@ -92,6 +97,7 @@ namespace Assets.Scripts.Guard
         private IEnumerator Restore()
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
+            visor.color = Color.white;
             hacked = false;
 
             OnPlayerVisible();

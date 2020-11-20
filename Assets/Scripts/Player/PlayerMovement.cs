@@ -14,6 +14,7 @@ namespace Assets.Scripts.Player
         private float yMovement;
         public bool facingRight;
         private float oldPosition;
+        private Animator anim;
 
         public Collider2D boxCollider;
 
@@ -33,6 +34,10 @@ namespace Assets.Scripts.Player
             if (boxCollider == null)
                 throw new NullReferenceException("Box Collider is missing. Please reference it.");
 
+            anim = GetComponent<Animator>();
+            if (anim == null)
+                throw new NullReferenceException("Animator is missing. Please attach it to the object.");
+
             coll = GetComponent<Collision>();
             rb = GetComponent<Rigidbody2D>();
             facingRight = true;
@@ -43,6 +48,7 @@ namespace Assets.Scripts.Player
         void Update()
         {
             FlipSprite();
+            UpdateAnimation();
             UpdateCoordinates();
             ProcessWalk();
             ProcessJump();
@@ -66,6 +72,11 @@ namespace Assets.Scripts.Player
             }
 
             oldPosition = transform.position.x;
+        }
+
+        private void UpdateAnimation()
+        {
+            anim.SetBool("HasXVelocity", Mathf.Abs(xMovement) > 0f);
         }
 
         private void UpdateCoordinates()
