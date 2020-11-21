@@ -14,12 +14,14 @@ namespace Assets.Scripts.Player
         private LayerMask _layermask;
         private IHackable _objectHacking;
         private float _currentHackingTime;
+        private LineRenderer line;
 
         public float hackDistance = 1f;
         public float hackTimeInSeconds = 2f;
         public bool isHacking = false;
         public bool canHack = true;
         public float timeBetweenHacks = 1.5f;
+        public Transform hackLineStartPos;
 
         private void Awake()
         {
@@ -27,6 +29,13 @@ namespace Assets.Scripts.Player
             _objectHacking = null;
             _currentHackingTime = 0f;
             isHacking = false;
+
+            line = GetComponentInChildren<LineRenderer>();
+            if (line == null)
+                throw new NullReferenceException("Line renderer is missing. Please attach it to child.");
+
+            if (hackLineStartPos == null)
+                throw new NullReferenceException("hackLineStartPos is missing. Please add reference.");
         }
 
         void Update()
@@ -50,7 +59,15 @@ namespace Assets.Scripts.Player
                     Debug.DrawRay(transform.position, Vector2.left * 1f);
                 }
 
-                if (!hit) return;
+                if (!hit)
+                {
+                    if (_objectHacking != null)
+                    {
+                        StartCoroutine(HackStopped());
+                    }
+
+                    return;
+                }
 
                 var hackableObject = hit.collider.gameObject.GetComponentInParent<IHackable>();
 
@@ -64,6 +81,10 @@ namespace Assets.Scripts.Player
 
                 isHacking = true;
                 _currentHackingTime += Time.deltaTime;
+
+                line.enabled = true;
+                line.SetPosition(0, hackLineStartPos.position);
+                line.SetPosition(1, hit.collider.transform.position);
 
                 if (Math.Abs(_currentHackingTime - hackTimeInSeconds) < 0.01f)
                 {
@@ -82,6 +103,7 @@ namespace Assets.Scripts.Player
 
         private IEnumerator HackStopped()
         {
+            line.enabled = false;
             canHack = false;
             isHacking = false;
             _objectHacking = null;
