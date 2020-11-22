@@ -12,6 +12,8 @@
         public static string Jump = "Jump";
         public static string Invisibility = "Invisibility";
         public static string Hack = "Hack";
+        public static string Translocate = "Translocate";
+        public static string CancelTranslocator = "CancelTranslocator";
     }
 
     public static class Layer

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using static Assets.Scripts.Helpers.Helpers;
 
 namespace Assets.Scripts.Player
 {
@@ -12,9 +11,11 @@ namespace Assets.Scripts.Player
         public bool isInvisible;
         public bool canBeInvisible;
 
+        [Space]
         public float maxTimeInvisible = 1.5f;
         public float delayBeforeCanBeInvisibleAgain = 3f;
 
+        [Space]
         public SpriteRenderer playerSprite;
 
         public delegate void Invisible();
@@ -27,8 +28,7 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            if (playerSprite == null)
-                throw new NullReferenceException("Player sprite is missing. Please reference it.");
+            NullChecker(playerSprite, "Player sprite is missing. Please reference it.");
 
             playerSprite.color = Color.white;
             isInvisible = false;
@@ -59,6 +59,13 @@ namespace Assets.Scripts.Player
             StartCoroutine(EnableInvisibility());
         }
 
+        private IEnumerator EnableInvisibility()
+        {
+            canBeInvisible = false;
+            yield return new WaitForSeconds(delayBeforeCanBeInvisibleAgain);
+            canBeInvisible = true;
+        }
+
         private void TurnInvisible()
         {
             if (isInvisible)
@@ -75,13 +82,6 @@ namespace Assets.Scripts.Player
         {
             yield return new WaitForSeconds(maxTimeInvisible);
             TurnVisible();
-        }
-
-        private IEnumerator EnableInvisibility()
-        {
-            canBeInvisible = false;
-            yield return new WaitForSeconds(delayBeforeCanBeInvisibleAgain);
-            canBeInvisible = true;
         }
     }
 }
