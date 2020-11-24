@@ -157,7 +157,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275ddb0251979d643a31b7413075bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectory: {x: 150, y: 300}
+  trajectory: {x: 300, y: 600}
 --- !u!1 &146504131
 GameObject:
   m_ObjectHideFlags: 0
