@@ -5,6 +5,7 @@ using Assets.Scripts.Player;
 using JetBrains.Annotations;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
+using Image = UnityEngine.UI.Image;
 
 namespace Assets.Scripts.Guard
 {
@@ -22,15 +23,25 @@ namespace Assets.Scripts.Guard
         public float timeDisabledWhileHacked = 5f;
         public bool hacked;
 
+        [Header("Reaction Images")] 
+        public Sprite playerNoticedSprite;
+        public Sprite playerDetectedSprite;
+        public Sprite hackedSprite;
+
         private Collider2D _collider2D;
         private Coroutine _detectPlayerCoroutine;
+        private Image _reactionImage;
 
         private void Start()
         {
             _collider2D = GetComponent<Collider2D>();
+            _reactionImage = GetComponentInChildren<Image>();
+
             NullChecker(_collider2D, "Collider2D is missing. Please add to game object.");
             NullChecker(visor, "Visor is missing. Please add the visor as a child to the object and reference it.");
+            NullChecker(_reactionImage, "Image is missing on Guard canvas. Please add to child.");
 
+            _reactionImage.enabled = false;
             playerDetected = false;
             visor.color = Color.white;
             hacked = false;
@@ -73,8 +84,12 @@ namespace Assets.Scripts.Guard
         private IEnumerator DetectPlayer()
         {
             visor.color = Color.yellow;
+            _reactionImage.enabled = true;
+            _reactionImage.sprite = playerNoticedSprite;
+
             yield return new WaitForSeconds(timeBeforeDetected);
             visor.color = Color.red;
+            _reactionImage.sprite = playerDetectedSprite;
         }
 
         private void OnTriggerExit2D([NotNull] Collider2D other)
@@ -87,6 +102,7 @@ namespace Assets.Scripts.Guard
 
         private void UndetectPlayer()
         {
+            _reactionImage.enabled = false;
             playerDetected = false;
 
             if (!IsHacked())
@@ -106,6 +122,8 @@ namespace Assets.Scripts.Guard
             hacked = true;
             visor.color = Color.black;
             UndetectPlayer();
+            _reactionImage.enabled = true;
+            _reactionImage.sprite = hackedSprite;
             StartCoroutine(Restore());
         }
 
@@ -114,6 +132,7 @@ namespace Assets.Scripts.Guard
             yield return new WaitForSeconds(timeDisabledWhileHacked);
             visor.color = Color.white;
             hacked = false;
+            _reactionImage.enabled = false;
 
             OnPlayerVisible();
         }
