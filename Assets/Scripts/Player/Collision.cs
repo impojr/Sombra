@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class Collision : MonoBehaviour
+    public class Collision : Singleton<Collision>
     {
         [Header("Layers")]
         public LayerMask groundLayer;

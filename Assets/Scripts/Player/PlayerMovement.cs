@@ -15,6 +15,7 @@ namespace Assets.Scripts.Player
         private float _yMovement;
         private float _oldPosition;
         private Animator _anim;
+        private Vector2 _initialPos;
 
         public Collider2D boxCollider;
         public bool facingRight;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Player
 
         void Start()
         {
+            _initialPos = transform.position;
             _anim = GetComponent<Animator>();
 
             NullChecker(_anim, "Animator is missing. Please attach it to the object.");
