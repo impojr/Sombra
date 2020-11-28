@@ -45,6 +45,33 @@ namespace Assets.Scripts.Player
             }
         }
 
+        private void OnEnable()
+        {
+            PlayerCaught.OnCaught += ResetTranslocator;
+        }
+
+        private void OnDisable()
+        {
+            PlayerCaught.OnCaught -= ResetTranslocator;
+        }
+
+        private void ResetTranslocator()
+        {
+            StopAllCoroutines();
+            translocator.Cancel();
+            StartCoroutine(EnableTranslocator());
+        }
+
+        private IEnumerator EnableTranslocator()
+        {
+            _canThrow = false;
+            _canTranslocate = false;
+            _translocatorDeployed = false;
+            yield return new WaitForSeconds(Delays.CaughtDelay);
+            _canThrow = true;
+            _canTranslocate = true;
+        }
+
         private bool CanThrow()
         {
             return _canThrow && !PlayerInvisibility.Instance.isInvisible && !PlayerHack.Instance.isHacking;

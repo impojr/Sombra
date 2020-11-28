@@ -51,12 +51,14 @@ namespace Assets.Scripts.Guard
         {
             PlayerInvisibility.OnInvisible += OnPlayerInvisible;
             PlayerInvisibility.OnVisible += OnPlayerVisible;
+            PlayerCaught.OnCaught += RestartLevel;
         }
 
         private void OnDisable()
         {
             PlayerInvisibility.OnInvisible -= OnPlayerInvisible;
             PlayerInvisibility.OnVisible -= OnPlayerVisible;
+            PlayerCaught.OnCaught -= RestartLevel;
         }
 
         private void OnPlayerInvisible()
@@ -69,6 +71,20 @@ namespace Assets.Scripts.Guard
         {
             if (_collider2D.IsTouching(PlayerMovement.Instance.boxCollider))
                 _detectPlayerCoroutine = StartCoroutine(DetectPlayer());
+        }
+
+        private void RestartLevel()
+        {
+            StopAllCoroutines();
+            StartCoroutine(UnhackOnReset());
+        }
+
+        private IEnumerator UnhackOnReset()
+        {
+            yield return new WaitForSeconds(Delays.CaughtDelay);
+            visor.color = Color.white;
+            hacked = false;
+            _reactionImage.enabled = false;
         }
 
         private void OnTriggerEnter2D([NotNull] Collider2D other)
@@ -90,6 +106,8 @@ namespace Assets.Scripts.Guard
             yield return new WaitForSeconds(timeBeforeDetected);
             visor.color = Color.red;
             _reactionImage.sprite = playerDetectedSprite;
+
+            PlayerCaught.Instance.Detected();
         }
 
         private void OnTriggerExit2D([NotNull] Collider2D other)

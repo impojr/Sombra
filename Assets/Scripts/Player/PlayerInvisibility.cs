@@ -46,6 +46,16 @@ namespace Assets.Scripts.Player
             }
         }
 
+        private void OnEnable()
+        {
+            PlayerCaught.OnCaught += RestartInvisibility;
+        }
+
+        private void OnDisable()
+        {
+            PlayerCaught.OnCaught -= RestartInvisibility;
+        }
+
         private void TurnVisible()
         {
             if (!isInvisible)
@@ -82,6 +92,19 @@ namespace Assets.Scripts.Player
         {
             yield return new WaitForSeconds(maxTimeInvisible);
             TurnVisible();
+        }
+
+        private void RestartInvisibility()
+        {
+            StopAllCoroutines();
+            canBeInvisible = false;
+            StartCoroutine(ResetPlayer());
+        }
+
+        private IEnumerator ResetPlayer()
+        {
+            yield return new WaitForSeconds(Constants.Delays.CaughtDelay);
+            canBeInvisible = true;
         }
     }
 }

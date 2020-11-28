@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Player
         private float _yMovement;
         private float _oldPosition;
         private Animator _anim;
+        private Vector2 _initialPos;
 
         public Collider2D boxCollider;
         public bool facingRight;
@@ -39,6 +41,7 @@ namespace Assets.Scripts.Player
             _rb = GetComponent<Rigidbody2D>();
             facingRight = true;
 
+            _initialPos = transform.position;
             _oldPosition = transform.position.x;
         }
 
@@ -47,9 +50,21 @@ namespace Assets.Scripts.Player
             FlipSprite();
             UpdateAnimation();
             UpdateCoordinates();
+
+            if (!canMove) return;
             ProcessWalk();
             ProcessJump();
             BetterJumping();
+        }
+
+        private void OnEnable()
+        {
+            PlayerCaught.OnCaught += RestartLevel;
+        }
+
+        private void OnDisable()
+        {
+            PlayerCaught.OnCaught -= RestartLevel;
         }
 
         private void FlipSprite()
@@ -96,6 +111,23 @@ namespace Assets.Scripts.Player
             {
                 Jump(Vector2.up);
             }
+        }
+
+        public void RestartLevel()
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            _xMovement = _yMovement = 0;
+            canMove = false;
+            StartCoroutine(ResetPlayer());
+        }
+
+        private IEnumerator ResetPlayer()
+        {
+            yield return new WaitForSeconds(Delays.CaughtDelay);
+
+            transform.position = _initialPos;
+            _rb.constraints = RigidbodyConstraints2D.None;
+            canMove = true;
         }
 
         private void Jump(Vector2 dir)

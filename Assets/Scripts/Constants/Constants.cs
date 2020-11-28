@@ -24,5 +24,12 @@
     public static class AnimationParams
     {
         public static string HasXVelocity = "HasXVelocity";
+        public static string Open = "Open";
+        public static string Close = "Close";
+    }
+
+    public static class Delays
+    {
+        public static float CaughtDelay = 0.5f;
     }
 }
