@@ -56,7 +56,7 @@ namespace Assets.Scripts.Player
             PlayerCaught.OnCaught -= RestartInvisibility;
         }
 
-        private void TurnVisible()
+        public void TurnVisible()
         {
             if (!isInvisible)
                 return;

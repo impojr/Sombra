@@ -4,6 +4,7 @@ using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
+using DG.Tweening;
 
 namespace Assets.Scripts.Player
 {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Player
         private float _oldPosition;
         private Animator _anim;
         private Vector2 _initialPos;
+        private SpriteRenderer _sprite;
 
         public Collider2D boxCollider;
         public bool facingRight;
@@ -33,8 +35,10 @@ namespace Assets.Scripts.Player
         void Start()
         {
             _anim = GetComponent<Animator>();
+            _sprite = GetComponentInChildren<SpriteRenderer>();
 
             NullChecker(_anim, "Animator is missing. Please attach it to the object.");
+            NullChecker(_sprite, "Sprite Renderer is missing. Please attach it to the child.");
             NullChecker(boxCollider, "Box Collider is missing. Please reference it.");
 
             _coll = GetComponent<Collision>();
@@ -49,9 +53,9 @@ namespace Assets.Scripts.Player
         {
             FlipSprite();
             UpdateAnimation();
-            UpdateCoordinates();
 
             if (!canMove) return;
+            UpdateCoordinates();
             ProcessWalk();
             ProcessJump();
             BetterJumping();
@@ -150,6 +154,22 @@ namespace Assets.Scripts.Player
             {
                 _rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
+        }
+
+        public void StopMomentum()
+        {
+            _xMovement = _yMovement = 0;
+            _rb.velocity = Vector2.zero;
+        }
+
+        public void EnterDoor()
+        {
+            //todo trigger anim for entering door
+            _sprite.DOFade(0, 1f).OnComplete(() =>
+            {
+                //todo trigger next level stuff
+                Debug.Log("AYY");
+            });
         }
     }
 }

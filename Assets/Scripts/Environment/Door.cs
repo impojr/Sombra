@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.Constants;
+﻿using System;
+using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Player;
+using DG.Tweening;
 using UnityEngine;
 using Collision = Assets.Scripts.Player.Collision;
 using static Assets.Scripts.Helpers.Helpers;
@@ -33,14 +35,12 @@ namespace Assets.Scripts.Environment
 
         public void Unlock()
         {
-            Debug.Log("DOOR UNLCOKED");
             isUnlocked = true;
             anim.SetTrigger(AnimationParams.Open);
         }
 
         public void Lock()
         {
-            Debug.Log("DOOR LCOKED");
             isUnlocked = false;
             anim.SetTrigger(AnimationParams.Close);
         }
@@ -49,7 +49,15 @@ namespace Assets.Scripts.Environment
         {
             if (other.CompareTag(Tags.Player) && isUnlocked && Collision.Instance.onGround)
             {
-                //todo start end of level sequence
+                Debug.Log("AH");
+                PlayerMovement.Instance.canMove = false;
+                PlayerMovement.Instance.StopMomentum();
+                other.transform.DOMoveX(transform.position.x, 0.5f).OnComplete(() =>
+                {
+                    Debug.Log("OH");
+                    PlayerMovement.Instance.StopMomentum();
+                    PlayerMovement.Instance.EnterDoor();
+                });
             }
         }
     }
