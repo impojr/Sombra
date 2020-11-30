@@ -29,18 +29,18 @@ namespace Assets.Scripts.Guard
 
         private Collider2D _collider2D;
         private Coroutine _detectPlayerCoroutine;
-        private Image _reactionImage;
+        protected Image ReactionImage;
 
         protected virtual void Start()
         {
             _collider2D = GetComponent<Collider2D>();
-            _reactionImage = GetComponentInChildren<Image>();
+            ReactionImage = GetComponentInChildren<Image>();
 
             NullChecker(_collider2D, "Collider2D is missing. Please add to game object.");
             NullChecker(visor, "Visor is missing. Please add the visor as a child to the object and reference it.");
-            NullChecker(_reactionImage, "Image is missing on Guard canvas. Please add to child.");
+            NullChecker(ReactionImage, "Image is missing on Guard canvas. Please add to child.");
 
-            _reactionImage.enabled = false;
+            ReactionImage.enabled = false;
             playerDetected = false;
             visor.color = Color.white;
             hacked = false;
@@ -78,12 +78,12 @@ namespace Assets.Scripts.Guard
             StartCoroutine(UnhackOnReset());
         }
 
-        protected IEnumerator UnhackOnReset()
+        protected virtual IEnumerator UnhackOnReset()
         {
             yield return new WaitForSeconds(Delays.CaughtDelay);
             visor.color = Color.white;
             hacked = false;
-            _reactionImage.enabled = false;
+            ReactionImage.enabled = false;
         }
 
         protected void OnTriggerEnter2D(Collider2D other)
@@ -96,15 +96,15 @@ namespace Assets.Scripts.Guard
             _detectPlayerCoroutine = StartCoroutine(DetectPlayer());
         }
 
-        protected IEnumerator DetectPlayer()
+        protected virtual IEnumerator DetectPlayer()
         {
             visor.color = Color.yellow;
-            _reactionImage.enabled = true;
-            _reactionImage.sprite = playerNoticedSprite;
+            ReactionImage.enabled = true;
+            ReactionImage.sprite = playerNoticedSprite;
 
             yield return new WaitForSeconds(timeBeforeDetected);
             visor.color = Color.red;
-            _reactionImage.sprite = playerDetectedSprite;
+            ReactionImage.sprite = playerDetectedSprite;
 
             PlayerCaught.Instance.Detected();
         }
@@ -119,7 +119,7 @@ namespace Assets.Scripts.Guard
 
         protected void UndetectPlayer()
         {
-            _reactionImage.enabled = false;
+            ReactionImage.enabled = false;
             playerDetected = false;
 
             if (!IsHacked())
@@ -134,22 +134,22 @@ namespace Assets.Scripts.Guard
             return hacked;
         }
 
-        public void Hacked()
+        public virtual void Hacked()
         {
             hacked = true;
             visor.color = Color.black;
             UndetectPlayer();
-            _reactionImage.enabled = true;
-            _reactionImage.sprite = hackedSprite;
+            ReactionImage.enabled = true;
+            ReactionImage.sprite = hackedSprite;
             StartCoroutine(Restore());
         }
 
-        protected IEnumerator Restore()
+        protected virtual IEnumerator Restore()
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
             visor.color = Color.white;
             hacked = false;
-            _reactionImage.enabled = false;
+            ReactionImage.enabled = false;
 
             OnPlayerVisible();
         }
