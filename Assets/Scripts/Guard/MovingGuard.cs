@@ -23,6 +23,9 @@ namespace Assets.Scripts.Guard
             NullChecker(startPos, "Start pos on child missing. Please add to child.");
             NullChecker(endPos, "End pos on child missing. Please add to child.");
 
+            if (endPos.position.x <= startPos.position.x)
+                Debug.LogWarning("StartPos x value needs to be left of the EndPos x value");
+
             Move();
         }
 
