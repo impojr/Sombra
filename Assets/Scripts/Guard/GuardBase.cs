@@ -51,6 +51,7 @@ namespace Assets.Scripts.Guard
             PlayerInvisibility.OnInvisible += OnPlayerInvisible;
             PlayerInvisibility.OnVisible += OnPlayerVisible;
             PlayerCaught.OnCaught += RestartLevel;
+            PlayerCaught.OnCaughtAnimEnded += UnhackOnReset;
         }
 
         protected void OnDisable()
@@ -58,6 +59,7 @@ namespace Assets.Scripts.Guard
             PlayerInvisibility.OnInvisible -= OnPlayerInvisible;
             PlayerInvisibility.OnVisible -= OnPlayerVisible;
             PlayerCaught.OnCaught -= RestartLevel;
+            PlayerCaught.OnCaughtAnimEnded -= UnhackOnReset;
         }
 
         protected void OnPlayerInvisible()
@@ -75,12 +77,10 @@ namespace Assets.Scripts.Guard
         protected void RestartLevel()
         {
             StopAllCoroutines();
-            StartCoroutine(UnhackOnReset());
         }
 
-        protected virtual IEnumerator UnhackOnReset()
+        protected virtual void UnhackOnReset()
         {
-            yield return new WaitForSeconds(Delays.CaughtDelay);
             visor.color = Color.white;
             hacked = false;
             ReactionImage.enabled = false;

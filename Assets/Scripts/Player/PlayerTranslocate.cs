@@ -48,26 +48,26 @@ namespace Assets.Scripts.Player
         private void OnEnable()
         {
             PlayerCaught.OnCaught += ResetTranslocator;
+            PlayerCaught.OnCaughtAnimEnded += EnableTranslocator;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= ResetTranslocator;
+            PlayerCaught.OnCaughtAnimEnded -= EnableTranslocator;
         }
 
         private void ResetTranslocator()
         {
             StopAllCoroutines();
             translocator.Cancel();
-            StartCoroutine(EnableTranslocator());
-        }
-
-        private IEnumerator EnableTranslocator()
-        {
             _canThrow = false;
             _canTranslocate = false;
             _translocatorDeployed = false;
-            yield return new WaitForSeconds(Delays.CaughtDelay);
+        }
+
+        private void EnableTranslocator()
+        {
             _canThrow = true;
             _canTranslocate = true;
         }

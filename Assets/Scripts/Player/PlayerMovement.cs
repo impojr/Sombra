@@ -64,11 +64,13 @@ namespace Assets.Scripts.Player
         private void OnEnable()
         {
             PlayerCaught.OnCaught += RestartLevel;
+            PlayerCaught.OnCaughtAnimEnded += ResetPlayer;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= RestartLevel;
+            PlayerCaught.OnCaughtAnimEnded -= ResetPlayer;
         }
 
         private void FlipSprite()
@@ -122,16 +124,15 @@ namespace Assets.Scripts.Player
             _rb.constraints = RigidbodyConstraints2D.FreezePosition;
             _xMovement = _yMovement = 0;
             canMove = false;
-            StartCoroutine(ResetPlayer());
+            _anim.SetTrigger(AnimationParams.Caught);
         }
 
-        private IEnumerator ResetPlayer()
+        private void ResetPlayer()
         {
-            yield return new WaitForSeconds(Delays.CaughtDelay);
-
             transform.position = _initialPos;
             _rb.constraints = RigidbodyConstraints2D.None;
             canMove = true;
+            _anim.SetTrigger(AnimationParams.Reset);
         }
 
         private void Jump(Vector2 dir)
@@ -164,7 +165,7 @@ namespace Assets.Scripts.Player
 
         public void EnterDoor()
         {
-            //todo trigger anim for entering door
+            _anim.SetTrigger(AnimationParams.Exit);
             _sprite.DOFade(0, 1f).OnComplete(() =>
             {
                 //todo trigger next level stuff

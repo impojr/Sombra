@@ -111,24 +111,23 @@ namespace Assets.Scripts.Player
         private void OnEnable()
         {
             PlayerCaught.OnCaught += ResetHack;
+            PlayerCaught.OnCaughtAnimEnded += EnableHack;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= ResetHack;
+            PlayerCaught.OnCaughtAnimEnded -= EnableHack;
         }
 
         private void ResetHack()
         {
             StartCoroutine(HackStopped());
             StopAllCoroutines();
-
-            StartCoroutine(EnableHack());
         }
 
-        private IEnumerator EnableHack()
+        private void EnableHack()
         {
-            yield return new WaitForSeconds(Constants.Delays.CaughtDelay);
             canHack = true;
         }
 

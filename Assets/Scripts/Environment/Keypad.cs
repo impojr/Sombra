@@ -37,12 +37,12 @@ public class Keypad : MonoBehaviour, IHackable
 
     private void OnEnable()
     {
-        PlayerCaught.OnCaught += ResetKeypad;
+        PlayerCaught.OnCaughtAnimEnded += ResetKeypad;
     }
 
     private void OnDisable()
     {
-        PlayerCaught.OnCaught -= ResetKeypad;
+        PlayerCaught.OnCaughtAnimEnded -= ResetKeypad;
     }
 
     public bool IsHacked()

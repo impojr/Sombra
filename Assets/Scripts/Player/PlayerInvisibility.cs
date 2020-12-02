@@ -49,11 +49,13 @@ namespace Assets.Scripts.Player
         private void OnEnable()
         {
             PlayerCaught.OnCaught += RestartInvisibility;
+            PlayerCaught.OnCaughtAnimEnded += ResetPlayer;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= RestartInvisibility;
+            PlayerCaught.OnCaughtAnimEnded -= ResetPlayer;
         }
 
         public void TurnVisible()
@@ -98,12 +100,10 @@ namespace Assets.Scripts.Player
         {
             StopAllCoroutines();
             canBeInvisible = false;
-            StartCoroutine(ResetPlayer());
         }
 
-        private IEnumerator ResetPlayer()
+        private void ResetPlayer()
         {
-            yield return new WaitForSeconds(Constants.Delays.CaughtDelay);
             canBeInvisible = true;
         }
     }

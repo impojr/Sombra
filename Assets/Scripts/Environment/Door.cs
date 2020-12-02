@@ -25,12 +25,12 @@ namespace Assets.Scripts.Environment
 
         private void OnEnable()
         {
-            PlayerCaught.OnCaught += Lock;
+            PlayerCaught.OnCaughtAnimEnded += Lock;
         }
 
         private void OnDisable()
         {
-            PlayerCaught.OnCaught -= Lock;
+            PlayerCaught.OnCaughtAnimEnded -= Lock;
         }
 
         public void Unlock()

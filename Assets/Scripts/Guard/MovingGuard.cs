@@ -65,9 +65,8 @@ namespace Assets.Scripts.Guard
             OnPlayerVisible();
         }
 
-        protected override IEnumerator UnhackOnReset()
+        protected override void UnhackOnReset()
         {
-            yield return new WaitForSeconds(Delays.CaughtDelay);
             PatrolRoute.Play();
             visor.color = Color.white;
             hacked = false;
