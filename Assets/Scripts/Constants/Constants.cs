@@ -29,6 +29,8 @@
         public static string Close = "Close";
         public static string Caught = "Caught";
         public static string Reset = "Reset";
+        public static string HackingStance = "HackingStance";
+        public static string Hacking = "Hacking";
     }
 
     public static class Delays

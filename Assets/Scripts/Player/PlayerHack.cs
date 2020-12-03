@@ -14,6 +14,7 @@ namespace Assets.Scripts.Player
         private IHackable _objectHacking;
         private float _currentHackingTime;
         private LineRenderer _line;
+        private Animator _anim;
 
         public bool canHack = true;
         public bool isHacking = false;
@@ -31,12 +32,14 @@ namespace Assets.Scripts.Player
 
         private void Awake()
         {
+            _anim = GetComponent<Animator>();
             _layerMask = 1 << LayerMask.NameToLayer(Layer.Hackable);
             _objectHacking = null;
             _currentHackingTime = 0f;
             isHacking = false;
 
             _line = GetComponentInChildren<LineRenderer>();
+            NullChecker(_anim, "Animator is missing. Please attach it to the object.");
             NullChecker(_line, "Line renderer is missing. Please attach it to child.");
             NullChecker(hackLineStartPos, "hackLineStartPos is missing. Please add reference.");
         }
@@ -54,6 +57,9 @@ namespace Assets.Scripts.Player
 
             if (Input.GetButton(InputManager.Hack) && !PlayerInvisibility.Instance.isInvisible)
             {
+                _anim.SetBool(AnimationParams.HackingStance, true);
+                PlayerMovement.Instance.canMove = false;
+                PlayerMovement.Instance.StopMomentum();
                 var playerFacingRight = PlayerMovement.Instance.facingRight;
 
                 RaycastHit2D hit = playerFacingRight ?
@@ -87,6 +93,7 @@ namespace Assets.Scripts.Player
                     _currentHackingTime = 0f;
                 }
 
+                _anim.SetBool(AnimationParams.Hacking, true);
                 isHacking = true;
                 _currentHackingTime += Time.deltaTime;
 
@@ -103,6 +110,8 @@ namespace Assets.Scripts.Player
 
             if (Input.GetButtonUp(InputManager.Hack))
             {
+                _anim.SetBool(AnimationParams.HackingStance, false);
+                PlayerMovement.Instance.canMove = true;
                 if (!isHacking) return;
                 StartCoroutine(HackStopped());
             }
@@ -133,6 +142,9 @@ namespace Assets.Scripts.Player
 
         private IEnumerator HackStopped()
         {
+            _anim.SetBool(AnimationParams.HackingStance, false);
+            _anim.SetBool(AnimationParams.Hacking, false);
+            PlayerMovement.Instance.canMove = true;
             _line.enabled = false;
             canHack = false;
             isHacking = false;
