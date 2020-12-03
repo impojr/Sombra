@@ -1217,6 +1217,7 @@ MonoBehaviour:
   startPos: {fileID: 1336435941}
   endPos: {fileID: 1887525937}
   timeToMoveBetweenPos: 6
+  timeStoppedAtEachEnd: 3
 --- !u!50 &811709940
 Rigidbody2D:
   serializedVersion: 4

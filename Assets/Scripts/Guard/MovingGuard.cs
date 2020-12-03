@@ -14,6 +14,7 @@ namespace Assets.Scripts.Guard
         public Transform endPos;
 
         public float timeToMoveBetweenPos = 6f;
+        public float timeStoppedAtEachEnd = 3f;
 
         public Sequence PatrolRoute;
 
@@ -35,10 +36,10 @@ namespace Assets.Scripts.Guard
 
             PatrolRoute.Append(transform.DOScaleX(-1, 0));
             PatrolRoute.Append(transform.DOMoveX(endPos.position.x, timeToMoveBetweenPos));
-            PatrolRoute.AppendInterval(2f);
+            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
             PatrolRoute.Append(transform.DOScaleX(1, 0));
             PatrolRoute.Append(transform.DOMoveX(startPos.position.x, timeToMoveBetweenPos));
-            PatrolRoute.AppendInterval(2f);
+            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
             PatrolRoute.SetLoops(-1);
         }
 
