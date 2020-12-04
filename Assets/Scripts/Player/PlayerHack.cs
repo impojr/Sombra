@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Environment;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interfaces;
+using Assets.Scripts.Managers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 
@@ -37,6 +39,7 @@ namespace Assets.Scripts.Player
             _objectHacking = null;
             _currentHackingTime = 0f;
             isHacking = false;
+            canHack = false;
 
             _line = GetComponentInChildren<LineRenderer>();
             NullChecker(_anim, "Animator is missing. Please attach it to the object.");
@@ -121,12 +124,26 @@ namespace Assets.Scripts.Player
         {
             PlayerCaught.OnCaught += ResetHack;
             PlayerCaught.OnCaughtAnimEnded += EnableHack;
+            LevelManager.OnLevelStart += Init;
+            Door.OnDoorEntered += EnteredDoor;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= ResetHack;
             PlayerCaught.OnCaughtAnimEnded -= EnableHack;
+            LevelManager.OnLevelStart -= Init;
+            Door.OnDoorEntered -= EnteredDoor;
+        }
+
+        private void Init()
+        {
+            canHack = true;
+        }
+
+        private void EnteredDoor()
+        {
+            canHack = false;
         }
 
         private void ResetHack()

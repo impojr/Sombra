@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Environment;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Managers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 using DG.Tweening;
@@ -47,6 +49,8 @@ namespace Assets.Scripts.Player
 
             _initialPos = transform.position;
             _oldPosition = transform.position.x;
+
+            canMove = false;
         }
 
         void Update()
@@ -65,12 +69,35 @@ namespace Assets.Scripts.Player
         {
             PlayerCaught.OnCaught += RestartLevel;
             PlayerCaught.OnCaughtAnimEnded += ResetPlayer;
+            LevelManager.OnLevelStart += Init;
+            LevelManager.OnLevelEnd += Terminate;
+            Door.OnDoorEntered += DoorEntered;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= RestartLevel;
             PlayerCaught.OnCaughtAnimEnded -= ResetPlayer;
+            LevelManager.OnLevelStart -= Init;
+            LevelManager.OnLevelEnd -= Terminate;
+            Door.OnDoorEntered -= DoorEntered;
+        }
+
+        private void Init()
+        {
+            canMove = true;
+        }
+
+        private void DoorEntered()
+        {
+            canMove = false;
+            StopMomentum();
+        }
+
+        private void Terminate()
+        {
+            StopMomentum();
+            EnterDoor();
         }
 
         private void FlipSprite()

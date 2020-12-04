@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Environment;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Managers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 
@@ -32,7 +34,7 @@ namespace Assets.Scripts.Player
 
             playerSprite.color = Color.white;
             isInvisible = false;
-            canBeInvisible = true;
+            canBeInvisible = false;
         }
 
         private void Update()
@@ -50,12 +52,28 @@ namespace Assets.Scripts.Player
         {
             PlayerCaught.OnCaught += RestartInvisibility;
             PlayerCaught.OnCaughtAnimEnded += ResetPlayer;
+            LevelManager.OnLevelStart += Init;
+            Door.OnDoorEntered += EnteredDoor;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= RestartInvisibility;
             PlayerCaught.OnCaughtAnimEnded -= ResetPlayer;
+            LevelManager.OnLevelStart -= Init;
+            Door.OnDoorEntered -= EnteredDoor;
+        }
+
+        private void Init()
+        {
+            canBeInvisible = true;
+        }
+
+        private void EnteredDoor()
+        {
+            canBeInvisible = false;
+            isInvisible = false;
+            playerSprite.color = Color.white;
         }
 
         public void TurnVisible()

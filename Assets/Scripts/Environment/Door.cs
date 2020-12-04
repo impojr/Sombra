@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using DG.Tweening;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace Assets.Scripts.Environment
         private Animator anim;
 
         public bool isUnlocked;
+
+        public delegate void DoorEntered();
+        public static event DoorEntered OnDoorEntered;
 
         private void Start()
         {
@@ -49,14 +53,10 @@ namespace Assets.Scripts.Environment
         {
             if (other.CompareTag(Tags.Player) && isUnlocked && Collision.Instance.onGround)
             {
-                Debug.Log("AH");
-                PlayerMovement.Instance.canMove = false;
-                PlayerMovement.Instance.StopMomentum();
+                OnDoorEntered?.Invoke();
                 other.transform.DOMoveX(transform.position.x, 0.5f).OnComplete(() =>
                 {
-                    Debug.Log("OH");
-                    PlayerMovement.Instance.StopMomentum();
-                    PlayerMovement.Instance.EnterDoor();
+                    LevelManager.Instance.EndLevel();
                 });
             }
         }

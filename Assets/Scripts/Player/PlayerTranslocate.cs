@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Environment;
+using Assets.Scripts.Managers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 
@@ -20,7 +22,7 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            _canThrow = true;
+            _canThrow = false;
             _translocatorDeployed = false;
             _canTranslocate = false;
 
@@ -49,12 +51,27 @@ namespace Assets.Scripts.Player
         {
             PlayerCaught.OnCaught += ResetTranslocator;
             PlayerCaught.OnCaughtAnimEnded += EnableTranslocator;
+            LevelManager.OnLevelStart += Init;
+            Door.OnDoorEntered += DoorEntered;
         }
 
         private void OnDisable()
         {
             PlayerCaught.OnCaught -= ResetTranslocator;
             PlayerCaught.OnCaughtAnimEnded -= EnableTranslocator;
+            LevelManager.OnLevelStart -= Init;
+            Door.OnDoorEntered -= DoorEntered;
+        }
+
+        private void Init()
+        {
+            _canThrow = true;
+        }
+
+        private void DoorEntered()
+        {
+            _canThrow = false;
+            _canTranslocate = false;
         }
 
         private void ResetTranslocator()
