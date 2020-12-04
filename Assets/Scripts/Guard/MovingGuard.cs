@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Environment;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
 using DG.Tweening;
+using DG.Tweening.Core;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 
@@ -26,20 +30,30 @@ namespace Assets.Scripts.Guard
 
             if (endPos.position.x <= startPos.position.x)
                 Debug.LogWarning("StartPos x value needs to be left of the EndPos x value");
+        }
 
-            Move();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            LevelManager.OnLevelStart += Move;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            LevelManager.OnLevelStart -= Move;
         }
 
         private void Move()
         {
             PatrolRoute = DOTween.Sequence();
 
+            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
             PatrolRoute.Append(transform.DOScaleX(-1, 0));
             PatrolRoute.Append(transform.DOMoveX(endPos.position.x, timeToMoveBetweenPos));
             PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
             PatrolRoute.Append(transform.DOScaleX(1, 0));
             PatrolRoute.Append(transform.DOMoveX(startPos.position.x, timeToMoveBetweenPos));
-            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
             PatrolRoute.SetLoops(-1);
         }
 

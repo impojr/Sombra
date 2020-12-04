@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Interfaces;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,24 +43,31 @@ namespace Assets.Scripts.Guard
 
             ReactionImage.enabled = false;
             playerDetected = false;
-            visor.color = Color.white;
+            visor.color = Color.black;
             hacked = false;
         }
 
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             PlayerInvisibility.OnInvisible += OnPlayerInvisible;
             PlayerInvisibility.OnVisible += OnPlayerVisible;
             PlayerCaught.OnCaught += RestartLevel;
             PlayerCaught.OnCaughtAnimEnded += UnhackOnReset;
+            LevelManager.OnLevelStart += Init;
         }
 
-        protected void OnDisable()
+        protected virtual void OnDisable()
         {
             PlayerInvisibility.OnInvisible -= OnPlayerInvisible;
             PlayerInvisibility.OnVisible -= OnPlayerVisible;
             PlayerCaught.OnCaught -= RestartLevel;
             PlayerCaught.OnCaughtAnimEnded -= UnhackOnReset;
+            LevelManager.OnLevelStart -= Init;
+        }
+
+        protected void Init()
+        {
+            visor.color = Color.white;
         }
 
         protected void OnPlayerInvisible()
