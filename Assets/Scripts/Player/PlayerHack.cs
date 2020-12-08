@@ -70,14 +70,14 @@ namespace Assets.Scripts.Player
                     Physics2D.Raycast(transform.position, Vector2.left, hackDistance, _layerMask);
 
                 #region Debug Raydrawing
-                //if (playerFacingRight)
-                //{
-                //    Debug.DrawRay(transform.position, Vector2.right * 1f);
-                //}
-                //else
-                //{
-                //    Debug.DrawRay(transform.position, Vector2.left * 1f);
-                //}
+                if (playerFacingRight)
+                {
+                    Debug.DrawRay(transform.position, Vector2.right * hackDistance);
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, Vector2.left * hackDistance);
+                }
                 #endregion
 
                 if (!hit)
@@ -103,6 +103,7 @@ namespace Assets.Scripts.Player
                 _line.enabled = true;
                 _line.SetPosition(0, hackLineStartPos.position);
                 _line.SetPosition(1, hit.collider.transform.position);
+                //Debug.DrawRay(hackLineStartPos.position, hit.collider.transform.position - hackLineStartPos.position);
 
                 if (Math.Abs(_currentHackingTime - hackTimeInSeconds) < 0.01f)
                 {
