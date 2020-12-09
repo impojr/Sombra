@@ -27,6 +27,8 @@ namespace Assets.Scripts.Player
 
         [Header("Movement")]
         public float speed = 10;
+        [Tooltip("How much faster the player walks when invisible")]
+        public float invisSpeedMultiplier = 1.25f;
         public bool canMove;
 
         [Header("Jump")]
@@ -132,9 +134,11 @@ namespace Assets.Scripts.Player
 
         private void ProcessWalk()
         {
+            var movementSpeed = PlayerInvisibility.Instance.isInvisible ? speed * invisSpeedMultiplier : speed;
+
             if (!canMove) { return; }
             var dir = new Vector2(_xMovement, _yMovement);
-            _rb.velocity = new Vector2(dir.x * speed, _rb.velocity.y);
+            _rb.velocity = new Vector2(dir.x * movementSpeed, _rb.velocity.y);
         }
 
         private void ProcessJump()

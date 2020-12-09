@@ -146,6 +146,7 @@ MonoBehaviour:
   boxCollider: {fileID: 4075047376299224004}
   facingRight: 0
   speed: 5
+  invisSpeedMultiplier: 1.5
   canMove: 1
   jumpForce: 5
   fallMultiplier: 2.5
