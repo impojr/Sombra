@@ -157,6 +157,9 @@ namespace Assets.Scripts.Player
         private void ResetPlayer()
         {
             transform.position = _initialPos;
+            _oldPosition = transform.position.x;
+            facingRight = true;
+            transform.localScale = Vector3.one;
             _rb.constraints = RigidbodyConstraints2D.None;
             canMove = true;
             _anim.SetTrigger(AnimationParams.Reset);
