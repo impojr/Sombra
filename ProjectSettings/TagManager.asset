@@ -57,3 +57,6 @@ TagManager:
   - name: Player
     uniqueID: 1983386359
     locked: 0
+  - name: Spotlight
+    uniqueID: 1808600681
+    locked: 0
