@@ -12,6 +12,7 @@ namespace Assets.Scripts.Guard
     [RequireComponent(typeof(BoxCollider2D))]
     public abstract class GuardBase : MonoBehaviour, IHackable
     {
+        public SpriteRenderer baseSprite;
         [Tooltip("The visor of the robot. This is needed to change its colour.")]
         public SpriteRenderer visor;
         public SpriteRenderer[] spotlightSprites;

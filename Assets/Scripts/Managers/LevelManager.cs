@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using Assets.Scripts.Guard;
 using Assets.Scripts.Helpers;
 using DG.Tweening;
 using TMPro;
@@ -40,6 +41,8 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
+            OrderGuardSpritesAndVisors();
+
             var fadeIn = DOTween.Sequence();
 
             fadeIn.AppendInterval(levelTransitionDelay);
@@ -49,6 +52,19 @@ namespace Assets.Scripts.Managers
                 DOTween.To(() => pixelation.BlockCount, x => pixelation.BlockCount = x, _maxBlockCount,
                     levelTransitionTime));
             fadeIn.OnComplete(StartLevel);
+        }
+
+        private void OrderGuardSpritesAndVisors()
+        {
+            var guards = FindObjectsOfType<GuardBase>();
+            var orderInLayercount = 0;
+
+            foreach (var guard in guards)
+            {
+                //sprite greater than visor
+                guard.visor.sortingOrder = orderInLayercount++;
+                guard.baseSprite.sortingOrder = orderInLayercount++;
+            }
         }
 
         private void StartLevel()

@@ -576,6 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a0c07804803614b82dadcc01e79f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSprite: {fileID: 4944826709248082348}
   visor: {fileID: 4944826708526766803}
   spotlightSprites:
   - {fileID: 2393363683173834323}
