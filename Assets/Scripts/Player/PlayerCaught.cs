@@ -19,7 +19,6 @@ namespace Assets.Scripts.Player
 
         public void AnimEnded()
         {
-            Debug.Log("ANIM ENDED CALLED");
             StartCoroutine(InvokeAnimEndedEvent());
         }
 

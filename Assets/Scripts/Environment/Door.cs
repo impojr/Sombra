@@ -40,13 +40,13 @@ namespace Assets.Scripts.Environment
         public void Unlock()
         {
             isUnlocked = true;
-            anim.SetTrigger(AnimationParams.Open);
+            anim.SetBool(AnimationParams.IsOpen, true);
         }
 
         public void Lock()
         {
             isUnlocked = false;
-            anim.SetTrigger(AnimationParams.Close);
+            anim.SetBool(AnimationParams.IsOpen, false);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -24,9 +24,8 @@
     public static class AnimationParams
     {
         public static string HasXVelocity = "HasXVelocity";
-        public static string Open = "Open";
+        public static string IsOpen = "IsOpen";
         public static string Exit = "Exit";
-        public static string Close = "Close";
         public static string Caught = "Caught";
         public static string Reset = "Reset";
         public static string HackingStance = "HackingStance";
