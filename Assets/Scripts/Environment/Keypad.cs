@@ -12,6 +12,7 @@ using static Assets.Scripts.Helpers.Helpers;
 public class Keypad : MonoBehaviour, IHackable
 {
     public bool hacked;
+    public Transform hackLineEndPos;
     public Sprite hackedSprite;
     public Sprite normalSprite;
 
@@ -33,6 +34,7 @@ public class Keypad : MonoBehaviour, IHackable
         NullChecker(_reactionImage, "Image is missing on Guard canvas. Please add to child.");
         NullChecker(_spriteRenderer, "Sprite Renderer not found on child. Please attach to child.");
         NullChecker(_pointLight, "Point Light is missing on Guard. Please add to child.");
+        NullChecker(hackLineEndPos, "hackLineEndPos is missing. Please add as child.");
 
         _spriteRenderer.sprite = normalSprite;
         _reactionImage.enabled = false;
@@ -62,6 +64,11 @@ public class Keypad : MonoBehaviour, IHackable
         _pointLight.color = Color.green;
         hacked = true;
         Door.Instance.Unlock();
+    }
+
+    public Transform GetHackPos()
+    {
+        return hackLineEndPos;
     }
 
     private void ResetKeypad()

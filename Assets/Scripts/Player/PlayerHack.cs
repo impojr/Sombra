@@ -102,7 +102,7 @@ namespace Assets.Scripts.Player
 
                 _line.enabled = true;
                 _line.SetPosition(0, hackLineStartPos.position);
-                _line.SetPosition(1, hit.collider.transform.position);
+                _line.SetPosition(1, hackableObject.GetHackPos().position);
                 //Debug.DrawRay(hackLineStartPos.position, hit.collider.transform.position - hackLineStartPos.position);
 
                 if (Math.Abs(_currentHackingTime - hackTimeInSeconds) < 0.01f)

@@ -26,6 +26,7 @@ namespace Assets.Scripts.Guard
         [Header("Hacking")]
         public float timeDisabledWhileHacked = 5f;
         public bool hacked;
+        public Transform hackLineEndPos;
 
         [Header("Reaction Images")]
         public Sprite playerNoticedSprite;
@@ -47,6 +48,7 @@ namespace Assets.Scripts.Guard
             NullChecker(_pointLight, "Point Light is missing on Guard. Please add to child.");
             NullChecker(visor, "Visor is missing. Please add the visor as a child to the object and reference it.");
             NullChecker(ReactionImage, "Image is missing on Guard canvas. Please add to child.");
+            NullChecker(hackLineEndPos, "hackLineEndPos is missing. Please add as child.");
 
             ReactionImage.enabled = false;
             playerDetected = false;
@@ -167,6 +169,11 @@ namespace Assets.Scripts.Guard
             ReactionImage.enabled = true;
             ReactionImage.sprite = hackedSprite;
             StartCoroutine(Restore());
+        }
+
+        public Transform GetHackPos()
+        {
+            return hackLineEndPos;
         }
 
         protected virtual IEnumerator Restore()

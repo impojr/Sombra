@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1979738487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979738488}
+  m_Layer: 0
+  m_Name: HackLinePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979738488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979738487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.045, y: 0.254, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5640913386657775121}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5640913386414044911
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +235,7 @@ Transform:
   - {fileID: 5640913387035151525}
   - {fileID: 5640913386436724568}
   - {fileID: 5640913387814603301}
+  - {fileID: 1979738488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -221,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hacked: 0
+  hackLineEndPos: {fileID: 1979738488}
   hackedSprite: {fileID: 21300000, guid: c746f3ed5e46adb40a19613d63fe4bc4, type: 3}
   normalSprite: {fileID: 21300000, guid: 03c02d3dbb1d41f40bea17c7e5fe2ab5, type: 3}
   hackedReactionSprite: {fileID: 21300000, guid: 1bd4852e00d98e649a2611d2a9f348d4, type: 3}
