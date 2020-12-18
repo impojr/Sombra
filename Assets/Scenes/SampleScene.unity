@@ -5203,6 +5203,10 @@ PrefabInstance:
       propertyPath: translocator
       value: 
       objectReference: {fileID: 68608831}
+    - target: {fileID: 4075047376633028705, guid: df0990f9df9a12449b608312c5e13b5c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df0990f9df9a12449b608312c5e13b5c, type: 3}
 --- !u!1001 &4498768263090733459
