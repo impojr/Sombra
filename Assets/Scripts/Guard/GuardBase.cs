@@ -4,6 +4,7 @@ using Assets.Scripts.Interfaces;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 using static Assets.Scripts.Helpers.Helpers;
 
@@ -15,7 +16,8 @@ namespace Assets.Scripts.Guard
         public SpriteRenderer baseSprite;
         [Tooltip("The visor of the robot. This is needed to change its colour.")]
         public SpriteRenderer visor;
-        public SpriteRenderer[] spotlightSprites;
+
+        public float visorLightIntensity = 0.5f;
 
         [Header("Player Detection")]
         public bool playerDetected;
@@ -31,23 +33,25 @@ namespace Assets.Scripts.Guard
         public Sprite hackedSprite;
 
         private Collider2D _collider2D;
+        private Light2D _pointLight;
         private Coroutine _detectPlayerCoroutine;
         protected Image ReactionImage;
 
         protected virtual void Start()
         {
             _collider2D = GetComponent<Collider2D>();
+            _pointLight = GetComponentInChildren<Light2D>();
             ReactionImage = GetComponentInChildren<Image>();
 
             NullChecker(_collider2D, "Collider2D is missing. Please add to game object.");
+            NullChecker(_pointLight, "Point Light is missing on Guard. Please add to child.");
             NullChecker(visor, "Visor is missing. Please add the visor as a child to the object and reference it.");
             NullChecker(ReactionImage, "Image is missing on Guard canvas. Please add to child.");
 
             ReactionImage.enabled = false;
             playerDetected = false;
-            visor.color = Color.black;
-            ChangeSpotlightColor(Color.clear);
-            
+            UpdateVisor(Color.black, 0);
+
             hacked = false;
         }
 
@@ -71,8 +75,7 @@ namespace Assets.Scripts.Guard
 
         protected void Init()
         {
-            visor.color = Color.white;
-            ChangeSpotlightColor(new Color(1,1,1,0.4f));
+            UpdateVisor(Color.white);
         }
 
         protected void OnPlayerInvisible()
@@ -87,6 +90,13 @@ namespace Assets.Scripts.Guard
                 _detectPlayerCoroutine = StartCoroutine(DetectPlayer());
         }
 
+        private void UpdateVisor(Color color, float lightIntensity = 0.5f)
+        {
+            visor.color = color;
+            _pointLight.color = color;
+            _pointLight.intensity = lightIntensity;
+        }
+
         protected void RestartLevel()
         {
             StopAllCoroutines();
@@ -95,7 +105,6 @@ namespace Assets.Scripts.Guard
         protected virtual void UnhackOnReset()
         {
             visor.color = Color.white;
-            ChangeSpotlightColor(new Color(1,1,1,0.4f));
             hacked = false;
             ReactionImage.enabled = false;
         }
@@ -112,14 +121,12 @@ namespace Assets.Scripts.Guard
 
         protected virtual IEnumerator DetectPlayer()
         {
-            visor.color = Color.yellow;
-            ChangeSpotlightColor(new Color(1,0.92f,0.016f,0.4f));
+            UpdateVisor(Color.yellow);
             ReactionImage.enabled = true;
             ReactionImage.sprite = playerNoticedSprite;
 
             yield return new WaitForSeconds(timeBeforeDetected);
-            visor.color = Color.red;
-            ChangeSpotlightColor(new Color(1,0,0,0.4f));
+            UpdateVisor(Color.red);
             ReactionImage.sprite = playerDetectedSprite;
 
             PlayerCaught.Instance.Detected();
@@ -133,14 +140,6 @@ namespace Assets.Scripts.Guard
             UndetectPlayer();
         }
 
-        private void ChangeSpotlightColor(Color color)
-        {
-            foreach (var spotlightSprite in spotlightSprites)
-            {
-                spotlightSprite.color = color;
-            }
-        }
-
         protected void UndetectPlayer()
         {
             ReactionImage.enabled = false;
@@ -148,8 +147,7 @@ namespace Assets.Scripts.Guard
 
             if (!IsHacked())
             {
-                visor.color = Color.white;
-                ChangeSpotlightColor(new Color(1, 1, 1, 0.4f));
+                UpdateVisor(Color.white);
             }
 
             if (_detectPlayerCoroutine != null)
@@ -164,8 +162,7 @@ namespace Assets.Scripts.Guard
         public virtual void Hacked()
         {
             hacked = true;
-            visor.color = Color.black;
-            ChangeSpotlightColor(Color.clear);
+            UpdateVisor(Color.black, 0);
             UndetectPlayer();
             ReactionImage.enabled = true;
             ReactionImage.sprite = hackedSprite;
@@ -175,8 +172,7 @@ namespace Assets.Scripts.Guard
         protected virtual IEnumerator Restore()
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
-            visor.color = Color.white;
-            ChangeSpotlightColor(new Color(1,1,1,0.4f));
+            UpdateVisor(Color.white, 0);
             hacked = false;
             ReactionImage.enabled = false;
 

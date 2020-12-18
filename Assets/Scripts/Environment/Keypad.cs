@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Player;
+using UnityEngine.Experimental.Rendering.Universal;
 using static Assets.Scripts.Helpers.Helpers;
 
 public class Keypad : MonoBehaviour, IHackable
@@ -18,7 +19,7 @@ public class Keypad : MonoBehaviour, IHackable
     public Sprite hackedReactionSprite;
 
     private Image _reactionImage;
-
+    private Light2D _pointLight;
     private SpriteRenderer _spriteRenderer;
 
     void Start()
@@ -27,12 +28,15 @@ public class Keypad : MonoBehaviour, IHackable
 
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _reactionImage = GetComponentInChildren<Image>();
+        _pointLight = GetComponentInChildren<Light2D>();
 
         NullChecker(_reactionImage, "Image is missing on Guard canvas. Please add to child.");
         NullChecker(_spriteRenderer, "Sprite Renderer not found on child. Please attach to child.");
+        NullChecker(_pointLight, "Point Light is missing on Guard. Please add to child.");
 
         _spriteRenderer.sprite = normalSprite;
         _reactionImage.enabled = false;
+        _pointLight.color = Color.red;
     }
 
     private void OnEnable()
@@ -55,6 +59,7 @@ public class Keypad : MonoBehaviour, IHackable
         _spriteRenderer.sprite = hackedSprite;
         _reactionImage.enabled = true;
         _reactionImage.sprite = hackedReactionSprite;
+        _pointLight.color = Color.green;
         hacked = true;
         Door.Instance.Unlock();
     }
@@ -70,6 +75,7 @@ public class Keypad : MonoBehaviour, IHackable
         yield return new WaitForSeconds(Delays.CaughtDelay);
         _spriteRenderer.sprite = normalSprite;
         _reactionImage.enabled = false;
+        _pointLight.color = Color.red;
         hacked = false;
     } 
 }
