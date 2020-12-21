@@ -102,6 +102,9 @@ MonoBehaviour:
   fadeImage: {fileID: 0}
   levelTransitionDelay: 0.5
   levelTransitionTime: 1
+  pauseMenu: {fileID: 0}
+  pauseMenuPanel: {fileID: 0}
+  pauseMenuBackground: {fileID: 0}
 --- !u!114 &8839762037242539016
 MonoBehaviour:
   m_ObjectHideFlags: 0

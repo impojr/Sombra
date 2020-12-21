@@ -14,6 +14,7 @@
         public static string Hack = "Hack";
         public static string Translocate = "Translocate";
         public static string CancelTranslocator = "CancelTranslocator";
+        public static string Pause = "Pause";
     }
 
     public static class Layer
@@ -30,6 +31,11 @@
         public static string Reset = "Reset";
         public static string HackingStance = "HackingStance";
         public static string Hacking = "Hacking";
+    }
+
+    public static class Menu
+    {
+        public static float TransitionDuration = 0.2f;
     }
 
     public static class Delays

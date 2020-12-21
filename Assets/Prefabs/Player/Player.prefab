@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935322191f4cafa4396fbdf3c9082c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translocator: {fileID: 0}
+  translocator: {fileID: 5546522756425349141, guid: 52c3d6450692c75459f109fd76d3534e, type: 3}
   minTimeBetweenThrowAndAct: 0.2
   delayBetweenThrows: 2
 --- !u!1 &4075047376633028706
