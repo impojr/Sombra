@@ -22,9 +22,9 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            _canThrow = false;
+            _canThrow = true;
             _translocatorDeployed = false;
-            _canTranslocate = false;
+            _canTranslocate = true;
 
             NullChecker(translocator, "Translocator is missing. Please add reference.");
         }

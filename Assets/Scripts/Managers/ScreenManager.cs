@@ -60,12 +60,18 @@ namespace Assets.Scripts.Managers
 
         public void LoadCreditsScene()
         {
-            SceneManager.LoadScene(1);
+            FadeOut(() =>
+            {
+                SceneManager.LoadScene(1);
+            });
         }
 
         public void LoadMainMenuScene()
         {
-            SceneManager.LoadScene(0);
+            FadeOut(() =>
+            {
+                SceneManager.LoadScene(0);
+            });
         }
 
         public void LoadLevelSelectScene()
