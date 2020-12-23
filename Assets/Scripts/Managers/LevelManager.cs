@@ -16,6 +16,7 @@ namespace Assets.Scripts.Managers
         private readonly float _minBlockCount = 64.0f;
         private readonly float _maxBlockCount = 512.0f;
         private bool _paused = false;
+        private string _level;
 
         public TextMeshProUGUI levelText;
         public Image fadeImage;
@@ -25,6 +26,17 @@ namespace Assets.Scripts.Managers
         public RectTransform pauseMenu;
         public RectTransform pauseMenuPanel;
         public RectTransform pauseMenuBackground;
+
+        public RectTransform endLevelMenu;
+        public RectTransform endLevelMenuPanel;
+        public RectTransform endLevelMenuBackground;
+        public Button nextLevelButton;
+        public TextMeshProUGUI levelCompleteTitle;
+        public TextMeshProUGUI timesCaughtText;
+        public TextMeshProUGUI successfulHacksText;
+
+        public int timesCaught;
+        public int successfulHacks;
 
         public delegate void LevelStart();
         public static event LevelStart OnLevelStart;
@@ -39,7 +51,14 @@ namespace Assets.Scripts.Managers
             NullChecker(levelText, "Please attach levelText to script");
             NullChecker(fadeImage, "Please attach fadeImage to script");
             NullChecker(pauseMenu, "Please attach pauseMenu to script");
+            NullChecker(endLevelMenu, "Please attach pauseMenu to script");
+            NullChecker(timesCaughtText, "Please attach timesCaughtText to script");
+            NullChecker(successfulHacksText, "Please attach successfulHacksText to script");
+            NullChecker(levelCompleteTitle, "Please attach levelCompleteTitle to script");
 
+            _level = SceneManager.GetActiveScene().name;
+            levelText.text = $"Level {_level}";
+            endLevelMenu.transform.localScale = Vector3.zero;
             pauseMenu.transform.localScale = Vector3.zero;
             _pixelation.enabled = true;
             _pixelation.BlockCount = _minBlockCount;
@@ -49,8 +68,10 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             OrderGuardSpritesAndVisors();
+            timesCaught = 0;
+            successfulHacks = 0;
 
-            var fadeIn = DOTween.Sequence();
+        var fadeIn = DOTween.Sequence();
 
             fadeIn.AppendInterval(levelTransitionDelay);
             fadeIn.Append(fadeImage.DOFade(0, levelTransitionTime));
@@ -96,8 +117,21 @@ namespace Assets.Scripts.Managers
         public void EndLevel()
         {
             OnLevelEnd?.Invoke();
-            SceneChangeTransition();
-            //show end level modal
+        }
+
+        public void ShowEndLevelMenu()
+        {
+            timesCaughtText.text = timesCaught.ToString();
+            successfulHacksText.text = successfulHacks.ToString();
+            levelCompleteTitle.text = $"Level {_level} Complete";
+
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+                Destroy(nextLevelButton.gameObject);
+
+            endLevelMenu.localScale = Vector3.one;
+            endLevelMenuBackground.localScale = Vector3.one;
+            endLevelMenuPanel.localScale = Vector3.zero;
+            endLevelMenuPanel.DOScale(1, Constants.Menu.TransitionDuration);
         }
 
         private void SceneChangeTransition()
@@ -121,7 +155,6 @@ namespace Assets.Scripts.Managers
             pauseMenuBackground.localScale = Vector3.one;
             pauseMenuPanel.localScale = Vector3.zero;
             pauseMenuPanel.DOScale(1, Constants.Menu.TransitionDuration).SetUpdate(true);
-            //show pause menu
         }
 
         public void Resume()
@@ -132,6 +165,16 @@ namespace Assets.Scripts.Managers
                 _paused = false;
                 Time.timeScale = 1;
             });
+        }
+
+        public void NextLevel()
+        {
+
+        }
+
+        public void ToMainMenu()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

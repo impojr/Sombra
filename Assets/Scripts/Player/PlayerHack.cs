@@ -107,6 +107,7 @@ namespace Assets.Scripts.Player
 
                 if (Math.Abs(_currentHackingTime - hackTimeInSeconds) < 0.01f)
                 {
+                    LevelManager.Instance.successfulHacks++;
                     _objectHacking.Hacked();
                     StartCoroutine(HackStopped());
                 }

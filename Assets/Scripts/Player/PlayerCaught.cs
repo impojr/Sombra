@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Player
 
         public void Detected()
         {
+            LevelManager.Instance.timesCaught++;
             OnCaught?.Invoke();
         }
 

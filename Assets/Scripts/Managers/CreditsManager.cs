@@ -2,8 +2,7 @@
 
 namespace Assets.Scripts.Managers
 {
-    public class CanvasManager : MonoBehaviour
+    public class CreditsManager : ScreenManager
     {
-
     }
 }

@@ -105,6 +105,15 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   pauseMenuPanel: {fileID: 0}
   pauseMenuBackground: {fileID: 0}
+  endLevelMenu: {fileID: 0}
+  endLevelMenuPanel: {fileID: 0}
+  endLevelMenuBackground: {fileID: 0}
+  nextLevelButton: {fileID: 0}
+  levelCompleteTitle: {fileID: 0}
+  timesCaughtText: {fileID: 0}
+  successfulHacksText: {fileID: 0}
+  timesCaught: 0
+  successfulHacks: 0
 --- !u!114 &8839762037242539016
 MonoBehaviour:
   m_ObjectHideFlags: 0

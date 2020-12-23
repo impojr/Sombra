@@ -202,8 +202,7 @@ namespace Assets.Scripts.Player
             _anim.SetTrigger(AnimationParams.Exit);
             _sprite.DOFade(0, 1f).OnComplete(() =>
             {
-                //todo trigger next level stuff
-                Debug.Log("AYY");
+                LevelManager.Instance.ShowEndLevelMenu();
             });
         }
     }
