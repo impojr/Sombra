@@ -83,6 +83,7 @@ namespace Assets.Scripts.Player
 
             StopCoroutine(_invisibilityCoroutine);
 
+            AudioManager.Instance.Play(AudioClipName.Visible);
             isInvisible = false;
             playerSprite.color = Color.white;
             OnVisible?.Invoke();
@@ -102,6 +103,7 @@ namespace Assets.Scripts.Player
                 return;
 
             isInvisible = true;
+            AudioManager.Instance.Play(AudioClipName.Invisible);
             playerSprite.color = Color.black;
             OnInvisible?.Invoke();
 

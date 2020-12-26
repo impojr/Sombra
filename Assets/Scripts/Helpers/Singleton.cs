@@ -9,8 +9,6 @@ namespace Assets.Scripts.Helpers
     /// </summary>
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        // Check to see if we're about to be destroyed.
-        private static object m_Lock = new object();
         private static T m_Instance;
 
         /// <summary>
@@ -20,10 +18,8 @@ namespace Assets.Scripts.Helpers
         {
             get
             {
-                lock (m_Lock)
+                if (m_Instance == null)
                 {
-                    if (m_Instance == null)
-                    {
                         // Search for existing instance.
                         m_Instance = (T)FindObjectOfType(typeof(T));
 
@@ -38,10 +34,9 @@ namespace Assets.Scripts.Helpers
                             // Make instance persistent.
                             DontDestroyOnLoad(singletonObject);
                         }
-                    }
-
-                    return m_Instance;
                 }
+
+                return m_Instance;
             }
         }
     }

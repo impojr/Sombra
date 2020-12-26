@@ -46,6 +46,7 @@ namespace Assets.Scripts.Managers
 
         private void Awake()
         {
+            Time.timeScale = 1;
             _pixelation = GetComponent<Pixelation.Scripts.Pixelation>();
             NullChecker(_pixelation, "Pixelation script is missing from object. Please attach.");
             NullChecker(levelText, "Please attach levelText to script");
@@ -134,17 +135,17 @@ namespace Assets.Scripts.Managers
             endLevelMenuPanel.DOScale(1, Constants.Menu.TransitionDuration);
         }
 
-        private void SceneChangeTransition()
+        private void SceneChangeTransition(TweenCallback callback)
         {
             _pixelation.enabled = true;
-            var fadeOut = DOTween.Sequence();
+            var fadeOut = DOTween.Sequence().SetUpdate(true);
 
             fadeOut.AppendInterval(levelTransitionDelay);
             fadeOut.Append(fadeImage.DOFade(1, levelTransitionTime));
             fadeOut.Insert(0,
                 DOTween.To(() => _pixelation.BlockCount, x => _pixelation.BlockCount = x, _minBlockCount,
                     levelTransitionTime));
-            //fadeOut.OnComplete();
+            fadeOut.OnComplete(callback);
         }
 
         public void Pause()
@@ -174,7 +175,10 @@ namespace Assets.Scripts.Managers
 
         public void ToMainMenu()
         {
-            SceneManager.LoadScene(0);
+            SceneChangeTransition(() =>
+            {
+                SceneManager.LoadScene(0);
+            });
         }
     }
 }

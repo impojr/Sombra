@@ -42,4 +42,22 @@
     {
         public static float CaughtDelay = 0.5f;
     }
+
+    public enum AudioClipName
+    {
+        Theme,
+        Hacking,
+        HackComplete,
+        HackInterrupted,
+        Seen,
+        Caught,
+        DoorOpened,
+        DoorClosed,
+        Win,
+        GuardHacked,
+        KeypadHacked,
+        Invisible,
+        Visible,
+        GuardRestored
+    }
 }

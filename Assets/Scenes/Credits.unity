@@ -571,8 +571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64.8, y: -71.7}
-  m_SizeDelta: {x: 707.0642, y: 370.61008}
+  m_AnchoredPosition: {x: 84.3, y: -79.3}
+  m_SizeDelta: {x: 741.45703, y: 448.96176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1800330171
 MonoBehaviour:
@@ -594,7 +594,42 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Fonts:\nFipps by pheist\nVCR OSD Mono by Riciery Leal\r"
+  m_text: 'Fonts:
+
+    Fipps by pheist
+
+    VCR OSD Mono by Riciery Leal
+
+
+    SFX:
+
+    High
+    Tech Alarm Beeps from https://www.freesfx.co.uk/
+
+    power-down-01.wav by newagesoup
+
+    Bad
+    Beep (Incorrect) by RICHERlandTV
+
+    Game Sound Correct.wav by Bertrof
+
+    Wtf_02.wav
+    by MATRIXXX_
+
+    B03_19.wav by Diex
+
+    Retro video game sfx - Computer on
+    by OwlStorm
+
+    door_open_close by primeval_polypod
+
+
+    Music:
+
+    Try Hacking
+    the Mainframe by TeknoAXE
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef985747dc99ee5428e119b1661fee69, type: 2}
   m_sharedMaterial: {fileID: -4462797249222383582, guid: ef985747dc99ee5428e119b1661fee69, type: 2}
@@ -624,8 +659,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -635,7 +670,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_isAlignmentEnumConverted: 1
-  m_characterSpacing: 0
+  m_characterSpacing: -5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -668,12 +703,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1800330171}
-    characterCount: 52
+    characterCount: 387
     spriteCount: 0
-    spaceCount: 9
-    wordCount: 10
+    spaceCount: 57
+    wordCount: 68
     linkCount: 0
-    lineCount: 3
+    lineCount: 16
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

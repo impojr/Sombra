@@ -5,6 +5,7 @@ using Assets.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Constants;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using UnityEngine.Experimental.Rendering.Universal;
 using static Assets.Scripts.Helpers.Helpers;
@@ -63,6 +64,7 @@ public class Keypad : MonoBehaviour, IHackable
         _reactionImage.sprite = hackedReactionSprite;
         _pointLight.color = Color.green;
         hacked = true;
+        AudioManager.Instance.Play(AudioClipName.KeypadHacked);
         Door.Instance.Unlock();
     }
 

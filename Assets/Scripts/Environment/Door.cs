@@ -39,12 +39,14 @@ namespace Assets.Scripts.Environment
 
         public void Unlock()
         {
+            AudioManager.Instance.Play(AudioClipName.DoorOpened);
             isUnlocked = true;
             anim.SetBool(AnimationParams.IsOpen, true);
         }
 
         public void Lock()
         {
+            AudioManager.Instance.Play(AudioClipName.DoorClosed);
             isUnlocked = false;
             anim.SetBool(AnimationParams.IsOpen, false);
         }

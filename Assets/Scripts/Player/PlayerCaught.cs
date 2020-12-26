@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.Constants;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Managers;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Player
 
         public void Detected()
         {
+            AudioManager.Instance.Play(AudioClipName.Caught);
             LevelManager.Instance.timesCaught++;
             OnCaught?.Invoke();
         }

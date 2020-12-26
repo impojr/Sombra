@@ -82,8 +82,11 @@ namespace Assets.Scripts.Player
 
                 if (!hit)
                 {
-                    if (_objectHacking != null) 
+                    if (_objectHacking != null)
+                    {
+                        AudioManager.Instance.Play(AudioClipName.HackInterrupted);
                         StartCoroutine(HackStopped());
+                    }
 
                     return;
                 }
@@ -92,6 +95,7 @@ namespace Assets.Scripts.Player
                 if (hackableObject == null || hackableObject.IsHacked()) return;
                 if (hackableObject != _objectHacking)
                 {
+                    AudioManager.Instance.Play(AudioClipName.Hacking);
                     _objectHacking = hackableObject;
                     _currentHackingTime = 0f;
                 }
@@ -118,6 +122,7 @@ namespace Assets.Scripts.Player
                 _anim.SetBool(AnimationParams.HackingStance, false);
                 PlayerMovement.Instance.canMove = true;
                 if (!isHacking) return;
+                AudioManager.Instance.Play(AudioClipName.HackInterrupted);
                 StartCoroutine(HackStopped());
             }
         }
@@ -163,6 +168,7 @@ namespace Assets.Scripts.Player
         {
             _anim.SetBool(AnimationParams.HackingStance, false);
             _anim.SetBool(AnimationParams.Hacking, false);
+            AudioManager.Instance.Stop(AudioClipName.Hacking);
             PlayerMovement.Instance.canMove = true;
             _line.enabled = false;
             canHack = false;

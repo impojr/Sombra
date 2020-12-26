@@ -78,6 +78,7 @@ namespace Assets.Scripts.Guard
         protected void Init()
         {
             UpdateVisor(Color.white);
+            AudioManager.Instance.Play(AudioClipName.GuardRestored);
         }
 
         protected void OnPlayerInvisible()
@@ -123,6 +124,7 @@ namespace Assets.Scripts.Guard
 
         protected virtual IEnumerator DetectPlayer()
         {
+            AudioManager.Instance.Play(AudioClipName.Seen);
             UpdateVisor(Color.yellow);
             ReactionImage.enabled = true;
             ReactionImage.sprite = playerNoticedSprite;
@@ -164,6 +166,7 @@ namespace Assets.Scripts.Guard
         public virtual void Hacked()
         {
             hacked = true;
+            AudioManager.Instance.Play(AudioClipName.GuardHacked);
             UpdateVisor(Color.black, 0);
             UndetectPlayer();
             ReactionImage.enabled = true;
@@ -179,7 +182,8 @@ namespace Assets.Scripts.Guard
         protected virtual IEnumerator Restore()
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
-            UpdateVisor(Color.white, 0);
+            AudioManager.Instance.Play(AudioClipName.GuardRestored);
+            UpdateVisor(Color.white);
             hacked = false;
             ReactionImage.enabled = false;
 

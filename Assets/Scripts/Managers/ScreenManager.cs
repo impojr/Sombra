@@ -44,7 +44,7 @@ namespace Assets.Scripts.Managers
         public void FadeOut(TweenCallback callback)
         {
             _pixelation.enabled = true;
-            var fadeOut = DOTween.Sequence();
+            var fadeOut = DOTween.Sequence().SetUpdate(true);
 
             fadeOut.AppendInterval(levelTransitionDelay);
             fadeOut.Insert(0,
