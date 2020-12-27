@@ -46,6 +46,8 @@ namespace Assets.Scripts.Environment
 
         public void Lock()
         {
+            if (!isUnlocked) return;
+
             AudioManager.Instance.Play(AudioClipName.DoorClosed);
             isUnlocked = false;
             anim.SetBool(AnimationParams.IsOpen, false);
