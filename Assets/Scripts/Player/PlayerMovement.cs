@@ -22,7 +22,7 @@ namespace Assets.Scripts.Player
         private Vector2 _initialPos;
         private SpriteRenderer _sprite;
 
-        public Collider2D boxCollider;
+        public BoxCollider2D boxCollider;
         public bool facingRight;
 
         [Header("Movement")]

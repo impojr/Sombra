@@ -29,7 +29,9 @@ namespace Assets.Scripts.Translocator
 
         public void Translocate()
         {
-            PlayerMovement.Instance.gameObject.transform.position = transform.position;
+            var playerHeightHalf = PlayerMovement.Instance.boxCollider.size.y / 2f;
+            var targetPos = new Vector2(transform.position.x, transform.position.y + playerHeightHalf);
+            PlayerMovement.Instance.gameObject.transform.position = targetPos;
             gameObject.SetActive(false);
         }
 
