@@ -623,11 +623,21 @@ MonoBehaviour:
 
     door_open_close by primeval_polypod
 
+    1 Super Fast Throwing
+    Sound.mp3 by orginaljun
+
+    Latch_01.wav by Q.K.
+
+    port.wav by Sergenious
+
+    PC
+    Game UI Error by plasterbrain
+
 
     Music:
 
-    Try Hacking
-    the Mainframe by TeknoAXE
+    Try Hacking the Mainframe by
+    TeknoAXE
 
 '
   m_isRightToLeft: 0
@@ -659,8 +669,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -703,12 +713,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1800330171}
-    characterCount: 387
+    characterCount: 510
     spriteCount: 0
-    spaceCount: 57
-    wordCount: 68
+    spaceCount: 76
+    wordCount: 92
     linkCount: 0
-    lineCount: 16
+    lineCount: 20
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

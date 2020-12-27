@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Constants;
 using Assets.Scripts.Guard;
 using Assets.Scripts.Helpers;
 using DG.Tweening;
@@ -117,6 +118,7 @@ namespace Assets.Scripts.Managers
 
         public void EndLevel()
         {
+            AudioManager.Instance.Play(AudioClipName.Win);
             OnLevelEnd?.Invoke();
         }
 

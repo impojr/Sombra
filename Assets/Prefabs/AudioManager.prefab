@@ -104,3 +104,28 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     loop: 0
+  - name: 14
+    clip: {fileID: 8300000, guid: 4f62ec41afd31854ea4a500e7b5590f7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: 16
+    clip: {fileID: 8300000, guid: 09be8db7bab90674caedf3d83a288c13, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: 15
+    clip: {fileID: 8300000, guid: 41c16b72df62c2844a1b65fa1261dddf, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: 17
+    clip: {fileID: 8300000, guid: 7116750d2b9f7ae4bb0a6389b6b36e75, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: 8
+    clip: {fileID: 8300000, guid: ac5765a83c1325340b97612ed5274574, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0

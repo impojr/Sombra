@@ -2,29 +2,30 @@
 using System.Collections;
 using Assets.Scripts.Constants;
 using Assets.Scripts.Environment;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Managers;
 using UnityEngine;
 using static Assets.Scripts.Helpers.Helpers;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerTranslocate : MonoBehaviour
+    public class PlayerTranslocate : Singleton<PlayerTranslocate>
     {
         public Translocator.Translocator translocator;
 
+        public bool canTranslocate;
+
         [Space]
-        public float minTimeBetweenThrowAndAct = 0.5f;
         public float delayBetweenThrows = 2f;
 
         private bool _translocatorDeployed;
-        private bool _canTranslocate;
         private bool _canThrow;
 
         private void Start()
         {
             _canThrow = true;
             _translocatorDeployed = false;
-            _canTranslocate = true;
+            canTranslocate = true;
 
             NullChecker(translocator, "Translocator is missing. Please add reference.");
         }
@@ -35,8 +36,8 @@ namespace Assets.Scripts.Player
             {
                 translocator.Throw(PlayerMovement.Instance.facingRight);
                 _translocatorDeployed = true;
-                StartCoroutine(AllowTranslocation());
-            } else if (_translocatorDeployed && Input.GetButtonDown(InputManager.Translocate) && _canTranslocate)
+                canTranslocate = false;
+            } else if (_translocatorDeployed && Input.GetButtonDown(InputManager.Translocate) && canTranslocate)
             {
                 translocator.Translocate();
                 TranslocatorUsed();
@@ -71,7 +72,7 @@ namespace Assets.Scripts.Player
         private void DoorEntered()
         {
             _canThrow = false;
-            _canTranslocate = false;
+            canTranslocate = false;
         }
 
         private void ResetTranslocator()
@@ -79,14 +80,14 @@ namespace Assets.Scripts.Player
             StopAllCoroutines();
             translocator.Cancel();
             _canThrow = false;
-            _canTranslocate = false;
+            canTranslocate = false;
             _translocatorDeployed = false;
         }
 
         private void EnableTranslocator()
         {
             _canThrow = true;
-            _canTranslocate = true;
+            canTranslocate = true;
         }
 
         private bool CanThrow()
@@ -94,15 +95,9 @@ namespace Assets.Scripts.Player
             return _canThrow && !PlayerInvisibility.Instance.isInvisible && !PlayerHack.Instance.isHacking;
         }
 
-        private IEnumerator AllowTranslocation()
-        {
-            yield return new WaitForSeconds(minTimeBetweenThrowAndAct);
-            _canTranslocate = true;
-        }
-
         private void TranslocatorUsed()
         {
-            _canTranslocate = false;
+            canTranslocate = false;
             _translocatorDeployed = false;
             StartCoroutine(AllowThrowing());
         }

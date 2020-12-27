@@ -58,6 +58,10 @@
         KeypadHacked,
         Invisible,
         Visible,
-        GuardRestored
+        GuardRestored,
+        TranslocatorThrown,
+        TranslocatorActive,
+        TranslocatorUsed,
+        TranslocatorCancelled
     }
 }
