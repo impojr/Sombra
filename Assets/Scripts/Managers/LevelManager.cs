@@ -13,7 +13,6 @@ namespace Assets.Scripts.Managers
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        private Pixelation.Scripts.Pixelation _pixelation;
         private readonly float _minBlockCount = 64.0f;
         private readonly float _maxBlockCount = 512.0f;
         private bool _paused = false;
@@ -48,8 +47,6 @@ namespace Assets.Scripts.Managers
         private void Awake()
         {
             Time.timeScale = 1;
-            _pixelation = GetComponent<Pixelation.Scripts.Pixelation>();
-            NullChecker(_pixelation, "Pixelation script is missing from object. Please attach.");
             NullChecker(levelText, "Please attach levelText to script");
             NullChecker(fadeImage, "Please attach fadeImage to script");
             NullChecker(pauseMenu, "Please attach pauseMenu to script");
@@ -62,8 +59,7 @@ namespace Assets.Scripts.Managers
             levelText.text = $"Level {_level}";
             endLevelMenu.transform.localScale = Vector3.zero;
             pauseMenu.transform.localScale = Vector3.zero;
-            _pixelation.enabled = true;
-            _pixelation.BlockCount = _minBlockCount;
+
             fadeImage.color = Color.black;
         }
 
@@ -78,9 +74,6 @@ namespace Assets.Scripts.Managers
             fadeIn.AppendInterval(levelTransitionDelay);
             fadeIn.Append(fadeImage.DOFade(0, levelTransitionTime));
             fadeIn.Insert(levelTransitionDelay, levelText.DOFade(0, levelTransitionTime));
-            fadeIn.Insert(levelTransitionDelay,
-                DOTween.To(() => _pixelation.BlockCount, x => _pixelation.BlockCount = x, _maxBlockCount,
-                    levelTransitionTime));
             fadeIn.OnComplete(StartLevel);
         }
 
@@ -112,7 +105,6 @@ namespace Assets.Scripts.Managers
         private void StartLevel()
         {
             levelText.enabled = false;
-            _pixelation.enabled = false;
             OnLevelStart?.Invoke();
         }
 
@@ -139,14 +131,10 @@ namespace Assets.Scripts.Managers
 
         private void SceneChangeTransition(TweenCallback callback)
         {
-            _pixelation.enabled = true;
             var fadeOut = DOTween.Sequence().SetUpdate(true);
 
             fadeOut.AppendInterval(levelTransitionDelay);
             fadeOut.Append(fadeImage.DOFade(1, levelTransitionTime));
-            fadeOut.Insert(0,
-                DOTween.To(() => _pixelation.BlockCount, x => _pixelation.BlockCount = x, _minBlockCount,
-                    levelTransitionTime));
             fadeOut.OnComplete(callback);
         }
 
