@@ -93,6 +93,7 @@ namespace Assets.Scripts.Player
         private IEnumerator EnableInvisibility()
         {
             canBeInvisible = false;
+            PlayerUi.Instance.RestoreInvisibility(delayBeforeCanBeInvisibleAgain);
             yield return new WaitForSeconds(delayBeforeCanBeInvisibleAgain);
             canBeInvisible = true;
         }
@@ -103,6 +104,7 @@ namespace Assets.Scripts.Player
                 return;
 
             isInvisible = true;
+            PlayerUi.Instance.StartInvisibility(maxTimeInvisible);
             AudioManager.Instance.Play(AudioClipName.Invisible);
             playerSprite.color = Color.black;
             OnInvisible?.Invoke();

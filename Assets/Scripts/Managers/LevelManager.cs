@@ -13,8 +13,6 @@ namespace Assets.Scripts.Managers
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        private readonly float _minBlockCount = 64.0f;
-        private readonly float _maxBlockCount = 512.0f;
         private bool _paused = false;
         private string _level;
 

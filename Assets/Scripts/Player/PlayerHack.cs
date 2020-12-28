@@ -98,6 +98,7 @@ namespace Assets.Scripts.Player
                     AudioManager.Instance.Play(AudioClipName.Hacking);
                     _objectHacking = hackableObject;
                     _currentHackingTime = 0f;
+                    PlayerUi.Instance.StartHack(hackTimeInSeconds);
                 }
 
                 _anim.SetBool(AnimationParams.Hacking, true);
@@ -175,6 +176,7 @@ namespace Assets.Scripts.Player
             isHacking = false;
             _objectHacking = null;
 
+            PlayerUi.Instance.RestoreHack(timeBetweenHacks);
             yield return new WaitForSeconds(timeBetweenHacks);
             canHack = true;
         }

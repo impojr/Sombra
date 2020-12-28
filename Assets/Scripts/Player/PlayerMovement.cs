@@ -110,12 +110,14 @@ namespace Assets.Scripts.Player
             {
                 facingRight = true;
                 transform.localScale = Vector3.one;
+                PlayerUi.Instance.Flip(true);
             }
 
             if (transform.position.x < _oldPosition) // he's looking left
             {
                 facingRight = false;
                 transform.localScale = new Vector3(-1, 1, 1);
+                PlayerUi.Instance.Flip(false);
             }
 
             _oldPosition = transform.position.x;

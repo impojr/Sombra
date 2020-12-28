@@ -60,3 +60,6 @@ TagManager:
   - name: Spotlight
     uniqueID: 1808600681
     locked: 0
+  - name: UI
+    uniqueID: 4154028165
+    locked: 0

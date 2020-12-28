@@ -105,6 +105,7 @@ namespace Assets.Scripts.Player
         private IEnumerator AllowThrowing()
         {
             _canThrow = false;
+            PlayerUi.Instance.RestoreTranslocator(delayBetweenThrows);
             yield return new WaitForSeconds(delayBetweenThrows);
             _canThrow = true;
         }
