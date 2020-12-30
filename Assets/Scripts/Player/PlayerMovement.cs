@@ -167,6 +167,7 @@ namespace Assets.Scripts.Player
             facingRight = true;
             transform.localScale = Vector3.one;
             _rb.constraints = RigidbodyConstraints2D.None;
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             canMove = true;
             _anim.SetTrigger(AnimationParams.Reset);
         }
