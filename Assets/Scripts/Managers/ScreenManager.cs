@@ -42,5 +42,10 @@ namespace Assets.Scripts.Managers
         {
             SceneManager.LoadScene(2);
         }
+
+        public void LoadHowToPlayScene()
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 }

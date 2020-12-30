@@ -9,7 +9,7 @@ namespace Assets.Scripts.Managers
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(3);
+                SceneManager.LoadScene(4);
             });
         }
 
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Managers
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(5);
             });
         }
 
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Managers
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(5);
+                SceneManager.LoadScene(6);
             });
         }
 
@@ -33,42 +33,42 @@ namespace Assets.Scripts.Managers
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(6);
+                SceneManager.LoadScene(7);
             });
         }
         public void LoadLevelFive()
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(7);
+                SceneManager.LoadScene(8);
             });
         }
         public void LoadLevelSix()
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(8);
+                SceneManager.LoadScene(9);
             });
         }
         public void LoadLevelSeven()
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(9);
+                SceneManager.LoadScene(10);
             });
         }
         public void LoadLevelEight()
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(10);
+                SceneManager.LoadScene(11);
             });
         }
         public void LoadLevelNine()
         {
             FadeOut(() =>
             {
-                SceneManager.LoadScene(11);
+                SceneManager.LoadScene(12);
             });
         }
     }
