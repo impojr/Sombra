@@ -12,15 +12,16 @@ namespace Assets.Scripts.Translocator
     {
         [Tooltip("The direction in when the object travels when thrown right.")]
         public Vector2 trajectory;
+        public SpriteRenderer translocatorColor;
         private Rigidbody2D _rb;
         private bool _stationery;
-        private Vector3 _prevPos;
 
         private void Awake()
         {
             _rb = GetComponentInChildren<Rigidbody2D>();
             NullChecker(_rb, "Rigidbody2D is missing. Please attach it to child.");
-            
+            NullChecker(translocatorColor, "translocatorColor is missing. Please attach it to child.");
+
             _stationery = true;
             gameObject.SetActive(false);
         }
@@ -34,7 +35,6 @@ namespace Assets.Scripts.Translocator
         {
             yield return new WaitForSeconds(0.1f);
             _stationery = false;
-            _prevPos = transform.position;
         }
 
         private void Update()
@@ -42,6 +42,7 @@ namespace Assets.Scripts.Translocator
             if (!_stationery && _rb.velocity == Vector2.zero)
             {
                 AudioManager.Instance.Play(AudioClipName.TranslocatorActive);
+                translocatorColor.color = Color.green;
                 //todo add lighting
                 PlayerTranslocate.Instance.canTranslocate = true;
                 _stationery = true;
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Translocator
         public void Throw(bool facingRight)
         {
             gameObject.SetActive(true);
+            translocatorColor.color = Color.red;
             transform.position = PlayerMovement.Instance.gameObject.transform.position;
             AudioManager.Instance.Play(AudioClipName.TranslocatorThrown);
 
