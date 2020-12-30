@@ -93,7 +93,7 @@ namespace Assets.Scripts.Guard
                 _detectPlayerCoroutine = StartCoroutine(DetectPlayer());
         }
 
-        private void UpdateVisor(Color color, float lightIntensity = 0.5f)
+        protected void UpdateVisor(Color color, float lightIntensity = 0.5f)
         {
             visor.color = color;
             _pointLight.color = color;
@@ -144,7 +144,7 @@ namespace Assets.Scripts.Guard
             UndetectPlayer();
         }
 
-        protected void UndetectPlayer()
+        protected virtual void UndetectPlayer()
         {
             ReactionImage.enabled = false;
             playerDetected = false;

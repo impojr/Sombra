@@ -72,12 +72,19 @@ namespace Assets.Scripts.Guard
         protected override IEnumerator Restore()
         {
             yield return new WaitForSeconds(timeDisabledWhileHacked);
+            AudioManager.Instance.Play(AudioClipName.GuardRestored);
             PatrolRoute.Play();
-            visor.color = Color.white;
+            UpdateVisor(Color.white);
             hacked = false;
             ReactionImage.enabled = false;
 
             OnPlayerVisible();
+        }
+
+        protected override void UndetectPlayer()
+        {
+            base.UndetectPlayer();
+            PatrolRoute.Play();
         }
 
         protected override void UnhackOnReset()
