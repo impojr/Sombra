@@ -594,17 +594,23 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fonts:
+  m_text: 'Art: Samantha Handley
 
-    Fipps by pheist
+    Programming, Level Design: Adrian Impedovo
+
+
+    Fonts:
+
+    Fipps
+    by pheist
 
     VCR OSD Mono by Riciery Leal
 
 
     SFX:
 
-    High
-    Tech Alarm Beeps from https://www.freesfx.co.uk/
+    High Tech Alarm Beeps
+    from https://www.freesfx.co.uk/
 
     power-down-01.wav by newagesoup
 
@@ -648,8 +654,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291217094
+  m_fontColor: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -669,8 +675,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -713,12 +719,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1800330171}
-    characterCount: 510
+    characterCount: 576
     spriteCount: 0
-    spaceCount: 76
-    wordCount: 92
+    spaceCount: 85
+    wordCount: 100
     linkCount: 0
-    lineCount: 20
+    lineCount: 23
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1045,8 +1051,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291217094
+  m_fontColor: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1192,7 +1198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: ad74d0fce11ad0b40b186ae3af269484, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
