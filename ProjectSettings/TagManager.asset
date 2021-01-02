@@ -45,6 +45,9 @@ TagManager:
   - name: Background
     uniqueID: 3038230065
     locked: 0
+  - name: RoomDetails
+    uniqueID: 2851386205
+    locked: 0
   - name: Foreground
     uniqueID: 3491067173
     locked: 0
