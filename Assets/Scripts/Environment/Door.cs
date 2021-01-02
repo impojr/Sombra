@@ -13,6 +13,7 @@ namespace Assets.Scripts.Environment
     public class Door : Singleton<Door>
     {
         private Animator anim;
+        private bool _levelComplete;
 
         public bool isUnlocked;
 
@@ -55,8 +56,19 @@ namespace Assets.Scripts.Environment
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(Tags.Player) && isUnlocked && Collision.Instance.onGround)
+            DetectPlayerGoingThroughDoor(other);
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            DetectPlayerGoingThroughDoor(other);
+        }
+
+        private void DetectPlayerGoingThroughDoor(Collider2D other)
+        {
+            if (!_levelComplete && other.CompareTag(Tags.Player) && isUnlocked && Collision.Instance.onGround)
             {
+                _levelComplete = true;
                 OnDoorEntered?.Invoke();
                 other.transform.DOMoveX(transform.position.x, 0.5f).OnComplete(() =>
                 {
