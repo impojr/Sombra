@@ -88,8 +88,8 @@ namespace Assets.Scripts.Guard
 
         public override void Hacked()
         {
-            PatrolRoute.Pause();
             base.Hacked();
+            PatrolRoute.Pause();
         }
 
         protected override IEnumerator Restore()

@@ -38,6 +38,10 @@ namespace Assets.Scripts.Player
 
         private void Reset()
         {
+            invisibilitySlider.DOKill();
+            hackSlider.DOKill();
+            translocatorSlider.DOKill();
+
             invisibilitySlider.fillAmount = 1;
             hackSlider.fillAmount = 1;
             translocatorSlider.fillAmount = 1;
