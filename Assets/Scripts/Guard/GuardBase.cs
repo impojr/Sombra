@@ -64,6 +64,7 @@ namespace Assets.Scripts.Guard
             PlayerCaught.OnCaught += RestartLevel;
             PlayerCaught.OnCaughtAnimEnded += UnhackOnReset;
             LevelManager.OnLevelStart += Init;
+            LevelManager.OnLevelEnd += DisableVision;
         }
 
         protected virtual void OnDisable()
@@ -73,6 +74,7 @@ namespace Assets.Scripts.Guard
             PlayerCaught.OnCaught -= RestartLevel;
             PlayerCaught.OnCaughtAnimEnded -= UnhackOnReset;
             LevelManager.OnLevelStart -= Init;
+            LevelManager.OnLevelEnd -= DisableVision;
         }
 
         protected void Init()
@@ -100,7 +102,7 @@ namespace Assets.Scripts.Guard
             _pointLight.intensity = lightIntensity;
         }
 
-        protected void RestartLevel()
+        protected virtual void RestartLevel()
         {
             StopAllCoroutines();
         }
@@ -156,6 +158,11 @@ namespace Assets.Scripts.Guard
 
             if (_detectPlayerCoroutine != null)
                 StopCoroutine(_detectPlayerCoroutine);
+        }
+
+        private void DisableVision()
+        {
+            _collider2D.enabled = false;
         }
 
         public bool IsHacked()

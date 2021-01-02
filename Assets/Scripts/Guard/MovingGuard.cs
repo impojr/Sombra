@@ -22,38 +22,61 @@ namespace Assets.Scripts.Guard
 
         public Sequence PatrolRoute;
 
+        private float _directionScale;
+
         protected override void Start()
         {
             base.Start();
             NullChecker(startPos, "Start pos on child missing. Please add to child.");
             NullChecker(endPos, "End pos on child missing. Please add to child.");
 
-            if (endPos.position.x <= startPos.position.x)
-                Debug.LogWarning("StartPos x value needs to be left of the EndPos x value");
+            _directionScale = startPos.position.x >= endPos.position.x ? 1f : -1f;
+            SetStartPosition();
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
             LevelManager.OnLevelStart += Move;
+            PlayerCaught.OnCaughtAnimEnded += ResetGuard;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             LevelManager.OnLevelStart -= Move;
+            PlayerCaught.OnCaughtAnimEnded -= ResetGuard;
+        }
+
+        protected override void RestartLevel()
+        {
+            base.RestartLevel();
+            PatrolRoute.Pause();
+        }
+
+        private void SetStartPosition()
+        {
+            transform.position = startPos.position;
+            transform.localScale = new Vector3(_directionScale, 1, 1);
+        }
+
+        private void ResetGuard()
+        {
+            SetStartPosition();
+            PatrolRoute.Restart();
         }
 
         private void Move()
         {
             PatrolRoute = DOTween.Sequence();
 
-            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
-            PatrolRoute.Append(transform.DOScaleX(-1, 0));
+            PatrolRoute.Append(transform.DOScaleX(_directionScale * 1, 0));
             PatrolRoute.Append(transform.DOMoveX(endPos.position.x, timeToMoveBetweenPos));
             PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
-            PatrolRoute.Append(transform.DOScaleX(1, 0));
+            PatrolRoute.Append(transform.DOScaleX(_directionScale * -1, 0));
             PatrolRoute.Append(transform.DOMoveX(startPos.position.x, timeToMoveBetweenPos));
+            PatrolRoute.AppendInterval(timeStoppedAtEachEnd);
+
             PatrolRoute.SetLoops(-1);
         }
 

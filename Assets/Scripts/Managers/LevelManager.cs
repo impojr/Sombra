@@ -158,7 +158,10 @@ namespace Assets.Scripts.Managers
 
         public void NextLevel()
         {
-
+            SceneChangeTransition(() =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            });
         }
 
         public void ToMainMenu()
