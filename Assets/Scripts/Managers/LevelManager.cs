@@ -132,6 +132,11 @@ namespace Assets.Scripts.Managers
             var fadeOut = DOTween.Sequence().SetUpdate(true);
 
             fadeOut.AppendInterval(levelTransitionDelay);
+            fadeOut.AppendCallback(() =>
+            {
+                pauseMenuPanel.gameObject.SetActive(false);
+                endLevelMenuPanel.gameObject.SetActive(false);
+            });
             fadeOut.Append(fadeImage.DOFade(1, levelTransitionTime));
             fadeOut.OnComplete(callback);
         }
